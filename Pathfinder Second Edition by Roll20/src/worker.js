@@ -5,11 +5,20 @@
 
         /* === GLOBAL VARIABLES === */
         var global_sheet_init_done = 0;
+        // -- TODO: verify squares
+        const global_sizes = [
+            {size:"tiny", squares: 1.0}
+            , {size:"small", squares: 1.0}
+            , {size:"medium", squares: 1.0}
+            , {size:"large", squares: 2.0}
+            , {size:"huge", squares: 3.0}
+            , {size:"gargantuan", squares: 4.0}
+        ];
         // Attribute names by category
         const global_attributes_by_category = {
             "abilities": ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
             , "ability_modifiers": ['strength_modifier', 'strength_modifier_half', 'dexterity_modifier', 'constitution_modifier', 'intelligence_modifier', 'wisdom_modifier', 'charisma_modifier']
-            , "setting_toggles": ['class_dc', 'armor_class', 'hitpoints', 'saving_throws', 'shield', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'perception', 'ancestry', 'notes', 'spell_attack', 'spell_dc', 'npc']
+            , "setting_toggles": ['class_dc', 'armor_class', 'hitpoints', 'saving_throws', 'shield', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma', 'perception', 'ancestry', 'notes', 'spell_attack', 'spell_dc', 'npcsettings', 'npcspellcaster']
             , "repeating_toggles": ['repeating_conditions', 'repeating_resistances-immunities', 'repeating_senses', 'repeating_languages', 'repeating_melee-strikes', 'repeating_ranged-strikes','repeating_actions-activities','repeating_free-actions-reactions','repeating_feat-ancestry','repeating_feat-class','repeating_feat-general','repeating_feat-bonus', 'repeating_feat-skill', 'repeating_lore', 'repeating_cantrips', 'repeating_items-worn', 'repeating_items-readied', 'repeating_items-other', 'repeating_npc-items', 'repeating_npc-melee-strikes', 'repeating_npc-ranged-strikes',"repeating_spellinnate","repeating_spellfocus","repeating_cantrip","repeating_spell1","repeating_spell2","repeating_spell3","repeating_spell4","repeating_spell5","repeating_spell6","repeating_spell7","repeating_spell8","repeating_spell9","repeating_spell10", 'repeating_interaction-abilities']
             , "select_attributes": ["armor_class","saving_throws_fortitude","saving_throws_reflex","saving_throws_will","class_dc_key","perception","repeating_melee-strikes:weapon", "repeating_melee-strikes:damage","repeating_ranged-strikes:weapon","repeating_ranged-strikes:damage","acrobatics","arcana","athletics","crafting","deception","diplomacy","intimidation","repeating_lore:lore","medicine","nature","occultism","performance","religion","society","survival","thievery","spell_attack_key","spell_dc_key"]
             , "skills": ["acrobatics","arcana","athletics","crafting","deception","diplomacy","intimidation","medicine","nature","occultism","performance","religion","society","stealth","survival","thievery"]
@@ -21,20 +30,26 @@
             , "ac_fields": ["ability","ability_select","dc_rank","proficiency","item","temporary","dc_base","cap","shield_ac_bonus","shield_temporary"]
             , "hit_points": ["hit_points_ancestry","hit_points_class","hit_points_other","hit_points_item"]
             , "repeating_attacks": ["melee-strikes","ranged-strikes"]
-            , "attacks_fields": ["weapon","weapon_ability_select","weapon_ability","weapon_proficiency","weapon_rank","weapon_item","weapon_temporary","weapon_traits","damage_dice","damage_dice_size","damage_ability_select","damage_ability","damage_b","damage_p","damage_s","damage_weapon_specialization","damage_temporary","damage_other","damage_effects"]
+            , "attacks_fields": ["weapon","weapon_ability_select","weapon_ability","weapon_proficiency","weapon_rank","weapon_item","weapon_temporary","weapon_traits","damage_dice","damage_dice_size","damage_ability_select","damage_ability","damage_b","damage_p","damage_s","damage_weapon_specialization","damage_temporary","damage_other","damage_effects","damage_additional"]
             , "perception": ["perception_ability_select","perception_ability","perception_rank","perception_proficiency","perception_item","perception_temporary"]
             , "class_dc": ["class_dc_key_ability_select","class_dc_key_ability","class_dc_proficiency","class_dc_rank","class_dc_item","class_dc_temporary"]
             , "spell_attack": ["spell_attack_key_ability_select","spell_attack_key_ability", "spell_attack_rank","spell_attack_proficiency","spell_attack_temporary"]
             , "spell_dc": ["spell_dc_key_ability_select","spell_dc_key_ability", "spell_dc_rank","spell_dc_proficiency","spell_dc_temporary"]
             , "magic_tradition": ["arcane","primal","occult","divine"]
             , "magic_tradition_fields": ["rank","proficiency"]
-            , "repeating_spells": ["cantrip","spell1","spell2","spell3","spell4","spell5","spell6","spell7","spell8","spell9","spell10"]
-            , "spells_fields": ["name","school","cast","traits","spelllevel","type","range","target","area","duration","frequency","uses","uses_max","attack_ability","attack_misc","damage_dice","damage_ability","damage_misc","damage_type","save_type","dc_misc","effect","description","attack_checkbox","damage_checkbox","save_checkbox","save_critical_success","save_success","save_failure","save_critical_failure"]
+            , "repeating_spells": ["cantrip","spellinnate","spellfocus","spell1","spell2","spell3","spell4","spell5","spell6","spell7","spell8","spell9","spell10"]
+            , "spells_fields": ["name","school","cast","traits","spelllevel","type","range","target","area","duration","frequency","uses","uses_max","attack_ability","attack_misc","damage_dice","damage_ability","damage_misc","damage_type","save_type","dc_misc","effect","description","attack_checkbox","npc_attack_checkbox","damage_checkbox","save_checkbox","npc_save_checkbox","save_critical_success","save_success","save_failure","save_critical_failure"]
             , "repeating_bulks": ["worn","readied","other"]
             , "bulks_fields": ["quantity","bulk"]
             , "translatables": ["modifier","ability_modifier","bonus","roll_bonus","roll_damage_bonus","#_damage_dice","use"]
         };
-
+        // NPC attributes object for building NPC from Compendium
+        const global_npc_attributes = {
+            basics: ["npc_type","level","alignment","size","traits","perception","senses","languages","acrobatics","acrobatics_notes","arcana","arcana_notes","athletics","athletics_notes","crafting","crafting_notes","deception","deception_notes","diplomacy","diplomacy_notes","intimidation","intimidation_notes","medicine","medicine_notes","nature","nature_notes","occultism","occultism_notes","performance","performance_notes","religion","religion_notes","society","society_notes","stealth","stealth_notes","survival","survival_notes","thievery","thievery_notes","strength_modifier","dexterity_modifier","constitution_modifier","intelligence_modifier","wisdom_modifier","charisma_modifier","armor_class","armor_class_notes","saving_throws_fortitude","saving_throws_reflex","saving_throws_will","saving_throws_notes","hit_points_max","hit_points_notes","immunities","weaknesses","resistances","speed","speed_notes","spell_attack","spell_dc","focus_points_max"]
+        };
+        // Misc
+        const global_magic_traditions = ["arcane","divine","primal","occult"];
+        const global_spell_frequencies = ["constant","at-will","daily-limit"];
         // Repeating sections and their attributes
         var global_repsecs = {
             "lore": {"section": "lore","attrs":global_attributes_by_category["skills_fields"].map(fld => `lore_${fld}`)}
@@ -159,7 +174,7 @@
             // == Gathering all necessary repeating section IDs
             getRepSecIds(JSON.parse(JSON.stringify(Object.values(global_repsecs))), (repsec_agr) => {
                 // == Gathering all necessary attributes
-                let tmpfields = ["character_name","sheet_type","level","query_roll_damage_dice","cp","sp","gp","pp"];
+                let tmpfields = ["character_name","sheet_type","level","query_roll_damage_dice","cp","sp","gp","pp","spell_attack","spell_dc"];
                 // --- Ability modifiers, Perception, Class DC, Hit Points
                 tmpfields.push(...global_attributes_by_category["ability_modifiers"],...global_attributes_by_category["perception"],...global_attributes_by_category["class_dc"],...global_attributes_by_category["hit_points"],...global_attributes_by_category["spell_attack"],...global_attributes_by_category["spell_dc"]);
                 // --- Skills, Saves, AC etc.
@@ -176,14 +191,19 @@
                 let all_fields = getRepSecFields(repsec_agr,Array.from(new Set(tmpfields)));
                 // == Gathering values
                 getAttrs(all_fields, (values) => {
+                    // console.table(values);
+                    let big_update = {};
+                    let update = {}; // Will be used to collect intermediate updates and replace values in values, when necessary
                     if((values["sheet_type"] || "").toLowerCase() === "npc") {
-                        // Stop NPCs autocalculating
-                        console.log(`%c Pathfinder Second Edition by Roll20: ${(values["character_name"] || "Unnamed character")} is an NPC. TotalUpdate was not fired.`, "color:purple;font-size:14px;");
+                        // NPCs : just update spells for now
+                        // == Spells
+                        global_attributes_by_category["repeating_spells"].forEach(r_spell => {
+                            repsec_agr.filter(current_section => current_section.section == r_spell)[0].ids.forEach(r_spell_id => {
+                                _.extend(big_update, calcSpell(`repeating_${r_spell}_${r_spell_id}`,values));
+                            });
+                        });
                     } else {
                         // == Starting re-calculation
-                        // console.table(values);
-                        let big_update = {};
-                        let update = {}; // Will be used to collect intermediate updates and replace values in values, when necessary
 
                         // == Skills
                         // Fixed skills
@@ -254,36 +274,38 @@
                         _.extend(big_update, update);
                         _.extend(values, update);
                         _.extend(big_update, calcBulk(values,repsec_agr));
-
-                        // == Updating (finally)
-                        // console.table(big_update);
-                        setAttrs(big_update, {silent: true}, ()=>{
-                            console.log(`%c Pathfinder Second Edition by Roll20: ${(values["character_name"] || "Unnamed character")} updated (${new Date() - debug_start}ms)`, "color:purple;font-size:14px;");
-                            if(callback) {
-                                callback();
-                            }
-                        });
                     };
+                    // == Updating (finally)
+                    // console.table(big_update);
+                    setAttrs(big_update, {silent: true}, ()=>{
+                        console.log(`%c Pathfinder Second Edition by Roll20: ${(values["character_name"] || "Unnamed character")} updated (${new Date() - debug_start}ms)`, "color:purple;font-size:14px;");
+                        if(callback) {
+                            callback();
+                        }
+                    });
                 });
             });
         };
 
         // === VERSIONING ===
-        const versioning = function() {
+        const versioning = function(callback) {
             getAttrs(["version","version_character","sheet_type","character_name"], (values) => {
                 let version_sheet = parseFloat(values["version"]) || 0.0;
                 let version_character = parseFloat(values["version_character"]) || 0.0;
                 if (version_character === version_sheet) {
                     console.log(`%c Pathfinder Second Edition by Roll20: ${(values["character_name"] || "Unnamed character")}, version ${version_character}`, "color:purple;font-size:14px;");
+                    if(callback) {
+                        callback();
+                    }
                 } else if (version_character < 2.01) {
                     versioningUpdateTo2_01(values, () => {
                         setAttrs({"version_character": 2.01}, {silent: true}, () => {
-                            versioning();
+                            versioning(callback);
                         });
                     });
                 } else {
                     setAttrs({"version_character": version_sheet}, {silent: true}, () => {
-                        versioning();
+                        versioning(callback);
                     });
                 }
             });
@@ -324,7 +346,7 @@
         };
 
         // === SKILLS
-        const updateSkill = function(id,attr,callback) {
+        const updateSkill = function(id, attr, callback) {
             console.log(`%c Update skill ${attr}`, "color:purple;font-size:14px;");
             let fields = ["sheet_type","level"];
             fields.push(...global_attributes_by_category["ability_modifiers"],...global_attributes_by_category["skills_fields"].map(field => `${id}_${field}`));
@@ -501,7 +523,7 @@
                 // Attack display
                 update[`${id}_weapon_display`] = `${weapon_strike < 0 ? "" : "+"}${weapon_strike}${(values[`${id}_weapon_traits`] || "").length ? " ("+values[`${id}_weapon_traits`]+")" : ""}`;
                 // Damage display
-                update[`${id}_damage_display`] = `${damage_dice == '0D0' ? "" : damage_dice}${damage_bonus < 0 ? "" : "+"}${damage_bonus}${values[`${id}_damage_b`] == "1" ? " "+getTranslationByKey("b").toUpperCase() : ""}${values[`${id}_damage_p`] == "1" ? " "+getTranslationByKey("p").toUpperCase() : ""}${values[`${id}_damage_s`] == "1" ? " "+getTranslationByKey("s").toUpperCase() : ""}${(values[`${id}_damage_effects`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_effects`] : ""}`;
+                update[`${id}_damage_display`] = `${damage_dice == '0D0' ? "" : damage_dice}${damage_bonus < 0 ? "" : "+"}${damage_bonus}${values[`${id}_damage_b`] == "1" ? " "+getTranslationByKey("b").toUpperCase() : ""}${values[`${id}_damage_p`] == "1" ? " "+getTranslationByKey("p").toUpperCase() : ""}${values[`${id}_damage_s`] == "1" ? " "+getTranslationByKey("s").toUpperCase() : ""}${(values[`${id}_damage_effects`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_effects`] : ""}${(values[`${id}_damage_additional`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_additional`] : ""}`;
                 // Damage Roll: calculating info to include translated damage type
                 let damage_info = "";
                 if(values[`${id}_damage_b`] == "1") {
@@ -524,7 +546,7 @@
                     update[`${id}_damage_dice_query`] = values[`query_roll_damage_dice`];
                 }
                 // Forced update to attack and damage rolls (in case of logic change)
-                update[`${id}_weapon_roll`] = "{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + @{weapon_strike}[@{text_modifier}] + @{query_roll_bonus}[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_info=@{weapon_traits}}} {{roll01_critical=1}}";
+                update[`${id}_weapon_roll`] = "{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + @{weapon_strike}[@{text_modifier}] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_info=@{weapon_traits}}} {{roll01_critical=1}}";
                 update[`${id}_damage_roll`] = "{{roll02_name=^{damage}}} {{roll02=[[@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{damage_info}}}";
                 update[`${id}_damage_critical_roll`] = "{{roll03_name=^{critical_damage}}} {{roll03=[[(@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}} {{roll03_info=@{damage_info}}}";
                 // End
@@ -681,7 +703,7 @@
         // === SPELLS: SPELL (note : NOT powers)
         const updateSpell = function(id, attr, callback) {
             console.log(`%c Update spell ${attr}`, "color:purple;font-size:14px;");
-            let fields = ["level","magic_tradition_arcane_proficiency","magic_tradition_primal_proficiency","magic_tradition_occult_proficiency","magic_tradition_divine_proficiency","spell_dc","spell_dc_key_ability","spell_dc_temporary","spell_attack","spell_attack_key_ability","spell_attack_temporary"];
+            let fields = ["sheet_type","level","magic_tradition_arcane_proficiency","magic_tradition_primal_proficiency","magic_tradition_occult_proficiency","magic_tradition_divine_proficiency","spell_dc","spell_dc_key_ability","spell_dc_temporary","spell_attack","spell_attack_key_ability","spell_attack_temporary"];
             fields.push(`${id}_type`);
             getAttrs(fields, (values) => {
                 setAttrs(calcSpell(id,values), {silent: true}, () => {
@@ -698,20 +720,25 @@
                 Otherwise (a magic tradition has been selected for the spell), a specifi spell base DC and attack are calcuted based on magic tradition proficiency and relative (DC or Attack) ability modifiers and temporary bonuses.
                 In a future version, full magic tradition attack and DC should be calcultared with their own ability modifiers and temporary bonuses (ie a full setting section for each magic tradition, with notes and all)
             */
-           let update = {};
-           let tradition = (values[`${id}_type`] || "empty-string");
-            // Attack
-            if(tradition == "empty-string") {
+            let update = {};
+            let tradition = (values[`${id}_type`] || "empty-string");
+
+            if((values["sheet_type"] || "").toLowerCase() == "npc") { // NPC
                 update[`${id}_spellattack`] = values["spell_attack"];
                 update[`${id}_spelldc`] = values["spell_dc"];
-            } else {
-                update[`${id}_spellattack`] = (parseInt(values[`magic_tradition_${tradition}_proficiency`]) || 0)
+            } else { // PC
+                if(tradition == "empty-string") {
+                    update[`${id}_spellattack`] = values["spell_attack"];
+                    update[`${id}_spelldc`] = values["spell_dc"];
+                } else {
+                    update[`${id}_spellattack`] = (parseInt(values[`magic_tradition_${tradition}_proficiency`]) || 0)
                     + (parseInt(values[`spell_attack_key_ability`]) || 0)
                     + (parseInt(values[`spell_attack_temporary`]) || 0);
-                update[`${id}_spelldc`] = 10
+                    update[`${id}_spelldc`] = 10
                     + (parseInt(values[`magic_tradition_${tradition}_proficiency`]) || 0)
                     + (parseInt(values[`spell_dc_key_ability`]) || 0)
                     + (parseInt(values[`spell_dc_temporary`]) || 0);
+                }
             }
             return update;
         };
@@ -760,6 +787,435 @@
             return update;
         };
 
+        // === NPC Compendium drops
+        const updateNpcDrop = function(rawdata) {
+            // Checking dropped data from comendium for NPC building
+            let cdata;
+            try{
+                cdata = JSON.parse(rawdata) || {};
+            }
+            catch(error){
+                cdata = {};
+                console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: no valid data`, "color:red;font-size:14px;");
+            }
+            if(_.isEmpty(cdata)) {
+                console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: empty data`, "color:red;font-size:14px;");
+            } else {
+                console.log(`%c PF2E Debug: NPC data: ${JSON.stringify(cdata,null,"  ")}`, "color:purple;font-size:12px;");
+                if(cdata["Category"] && (cdata["Category"].trim().toLowerCase() === "monsters")) {
+                    // Initialize NPC & show building splash
+                    setAttrs({"sheet_type": "npc","build_message": (getTranslationByKey("building_npc") || "BUIDLING")},{silent: true}, ()=>{
+                        getAttrs(["npcdrop_name","npcdrop_uniq","toggles"], (values) => {
+                            setAttrs(calcNpcDrop(cdata,values),{silent: true}, () => {
+                                updateDefaultToken();
+                            });
+                        });
+                    });
+                }
+            }
+        };
+        const calcNpcDrop = function (cdata,values) {
+            // Budiling / Updating an NPC character with dropped data from the compendium
+            let update = {}, row = "", obj_array = [];
+            let rollregex = /(\d+d*\d*\+*\-*\d*)/gi; // Improvable Regex formula to parse damage dice rolls (like 1d6+2 or 2d4 or just ... 3)
+            // Base NPC information
+            if(values["npcdrop_name"]) {
+                update["character_name"] = values["npcdrop_name"];
+            }
+            if(values["npcdrop_uniq"]) {
+                update["npc_fromcompendium"] = values["npcdrop_uniq"];
+            } else {
+                update["npc_fromcompendium"] = "Monsters:" + values["npcdrop_name"];
+            }
+            // === Basic non repeating informations
+            global_npc_attributes.basics.forEach((attr) => {
+                if(cdata[attr]) {
+                    update[`${attr}`] = cdata[attr];
+                }
+            });
+            // === Repeating data
+            // -- Lore skills
+            if(cdata["data-lore"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-lore"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid lore`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_lore_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}lore_name`] = (obj["lore_name"] || getTranslationByKey("lore").toUpperCase());
+                        update[`${row}lore`] = (obj["lore"] || "0");
+                        update[`${row}lore_notes`] = (obj["lore_notes"] || "");
+                    });
+                }
+            }
+            // -- Items
+            if(cdata["data-items"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-items"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid items`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_items-worn_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}worn_item`] = (obj["item"] || getTranslationByKey("item").toUpperCase());
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Interaction abilities
+            if(cdata["data-interaction-abilities"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-interaction-abilities"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid interaction abilities`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_interaction-abilities_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Free actions reactions (automatic and reactive abilities)
+            if(cdata["data-free-actions-reactions"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-free-actions-reactions"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid actions reactions`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_free-actions-reactions_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        if((obj["free_action"] || "")) {
+                            update[`${row}free_action`] = "free action";
+                        }
+                        if((obj["reaction"] || "")) {
+                            update[`${row}reaction`] = "reaction";
+                        }
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}source`] = (obj["source"] || "");
+                        update[`${row}trigger`] = (obj["trigger"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Melee strikes
+            if(cdata["data-melee-strikes"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-melee-strikes"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid melee strikes`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_melee-strikes_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}weapon`] = (obj["weapon"] || getTranslationByKey("weapon").toUpperCase());
+                        update[`${row}weapon_strike`] = (obj["weapon_strike"] || "+0");
+                        update[`${row}weapon_traits`] = (obj["weapon_traits"] || "");
+                        update[`${row}weapon_strike_damage`] = (obj["weapon_strike_damage"] || "+0");
+                        update[`${row}weapon_strike_damage_type`] = (obj["weapon_strike_damage_type"] || "");
+                        update[`${row}weapon_strike_damage_additional`] = (obj["weapon_strike_damage_additional"] || "").replace(rollregex,'[[$1]]');
+                        update[`${row}weapon_notes`] = (obj["weapon_notes"] || "");
+                    });
+                }
+            }
+            // -- Ranged strikes
+            if(cdata["data-ranged-strikes"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-ranged-strikes"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid ranged strikes`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_ranged-strikes_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}weapon`] = (obj["weapon"] || getTranslationByKey("weapon").toUpperCase());
+                        update[`${row}weapon_strike`] = (obj["weapon_strike"] || "+0");
+                        update[`${row}weapon_traits`] = (obj["weapon_traits"] || "");
+                        update[`${row}weapon_strike_damage`] = (obj["weapon_strike_damage"] || "+0");
+                        update[`${row}weapon_strike_damage_type`] = (obj["weapon_strike_damage_type"] || "");
+                        update[`${row}weapon_strike_damage_additional`] = (obj["weapon_strike_damage_additional"] || "").replace(rollregex,'[[$1]]');
+                        update[`${row}weapon_range`] = (obj["weapon_range"] || "");
+                        update[`${row}weapon_notes`] = (obj["weapon_notes"] || "");
+                    });
+                }
+            }
+            // -- Actions activities (Offensive or Proactive abilities)
+            if(cdata["data-actions-activities"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-actions-activities"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid actions activities (offensive or proactive abilities)`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_actions-activities_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        update[`${row}actions`] = (obj["actions"] || "");
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}source`] = (obj["source"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // === Spell/spellcaster handling
+            let is_spellcaster = false;
+            let spells_array = [0,0,0,0,0,0,0,0,0,0]; // number of spells per level (1 to 10)
+            // -- Innate Spells
+            if(cdata["data-spellinnate"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spellinnate"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid innate spells`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    obj_array.forEach((obj) => {
+                        row = `repeating_spellinnate_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        update[`${row}domain`] = (obj["domain"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Focus spells
+            if((cdata["casts_focus"] || "false").toLowerCase() == "true") {
+                is_spellcaster = true;
+                update["casts_focus"] = "1";
+            }
+            if(cdata["data-spellfocus"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spellfocus"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid focus spells`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    update["casts_focus"] = "1";
+                    obj_array.forEach((obj) => {
+                        row = `repeating_spellfocus_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        update[`${row}domain`] = (obj["domain"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Cantrips
+            if((cdata["casts_cantrips"] || "false").toLowerCase() == "true") {
+                is_spellcaster = true;
+                update["casts_cantrips"] = "1";
+            }
+            if(cdata["data-cantrip"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-cantrip"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid cantrips`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    update["casts_cantrips"] = "1";
+                    update["cantrips_per_day"] = obj_array.length;
+                    obj_array.forEach((obj) => {
+                        row = `repeating_cantrip_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        if(obj["type"] && global_magic_traditions.includes(obj["type"].trim().toLowerCase())) {
+                            update[`${row}type`] = obj["type"];
+                        }
+                        if(obj["frequency"] && global_spell_frequencies.includes(obj["frequency"].trim().toLowerCase())) {
+                            update[`${row}frequency`] = obj["frequency"];
+                        }
+                        update[`${row}uses_max`] = (obj["uses_max"] || "0");
+                        update[`${row}uses`] = update[`${row}uses_max`];
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // --- Prepared and Spontaneous Spells, level 1 to 10
+            if(cdata["spellcaster_prepared"] && cdata["spellcaster_prepared"].trim().toLowerCase() !== "false") {
+                is_spellcaster = true;
+                update["spellcaster_prepared"] = "prepared";
+            }
+            if(cdata["spellcaster_spontaneous"] && cdata["spellcaster_spontaneous"].trim().toLowerCase() !== "false") {
+                is_spellcaster = true;
+                update["spellcaster_spontaneous"] = "spontaneous";
+            }
+            if(cdata["data-spell"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spell"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid spell`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    let spellvl = 1;
+                    obj_array.forEach((obj) => {
+                        spellvl = parseInt((obj["spelllevel"] || "1"));
+                        spells_array[spellvl-1]++;
+                        row = `repeating_spell${spellvl}_${generateRowID()}_`;
+                        // attributes
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = spellvl;
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        if(obj["type"] && global_magic_traditions.includes(obj["type"].trim().toLowerCase())) {
+                            update[`${row}type`] = obj["type"];
+                        }
+                        if(obj["frequency"] && global_spell_frequencies.includes(obj["frequency"].trim().toLowerCase())) {
+                            update[`${row}frequency`] = obj["frequency"];
+                        }
+                        update[`${row}uses_max`] = (obj["uses_max"] || "0");
+                        update[`${row}uses`] = update[`${row}uses_max`];
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Spells per level (1 to 10)
+            if(is_spellcaster) {
+                // Activating (or not) spell sections, and spells per day
+                for (let i = 0; i < 10; i++) {
+                    if(cdata[`level_${i+1}_per_day_max`] && (parseInt(cdata[`level_${i+1}_per_day_max`]) || 0) > 0) {
+                        update[`casts_level_${i+1}`] = "1";
+                        update[`level_${i+1}_per_day`] = parseInt(cdata[`level_${i+1}_per_day_max`]);
+                        update[`level_${i+1}_per_day_max`] = parseInt(cdata[`level_${i+1}_per_day_max`]);
+                    } else {
+                        update[`casts_level_${i+1}`] = (parseInt(spells_array[i]) || 0) > 0 ? "1" : "0";
+                        update[`level_${i+1}_per_day`] = spells_array[i];
+                        update[`level_${i+1}_per_day_max`] = spells_array[i];
+                    }
+                }
+            }
+            // -- Rituals: TBC when sheet updated with rituals
+            // === Final calculations
+            if(is_spellcaster) { // make sure the spell/magic sections is visible
+                update["toggles"] = (values["toggles"] || "") + "npcspellcaster,";
+            }
+            update["hit_points"] = (update["hit_points_max"] || 0);
+            update["focus_points"] = (update["focus_points_max"] || 0);
+            // -- Hide building splash
+            update["build_message"] = "";
+            // -- End / return
+            return update;
+        };
+        const updateDefaultToken = function() {
+            // === Token default attributes handling
+            // TODO: sheet.json settings update for bars
+            getAttrs(["size","settings_bar1_value","settings_bar1_max","settings_bar1_link","settings_bar2_value","settings_bar2_max","settings_bar2_link","settings_bar3_value","settings_bar3_max","settings_bar3_link"], (settings) => {
+                let default_attr = {};
+                // SIZE
+                default_attr["width"] = 70;
+                default_attr["height"] = 70;
+                if(settings["size"]) {
+                    let squares = 1.0;
+                    let squarelength = 70;
+                    let obj_size = global_sizes.find((size_item) => size_item.size === settings["size"].toLowerCase());
+                    if(! _.isEmpty(obj_size)) {
+                        squares = Math.max((parseFloat(obj_size.squares) || 1.0), 1.0);
+                    }
+                    let squaresize = parseInt(squarelength * squares);
+                    default_attr["width"] = squaresize;
+                    default_attr["height"] = squaresize;
+                }
+                // === BARS
+                let getList = {};
+                for(x = 1; x <= 3; x++) {
+                    _.each(["value", "max"], (word) => {
+                        let keyname = "settings_bar" + x + "_" + word;
+                        if(settings[keyname]) {
+                            getList[keyname] = settings[keyname];
+                        }
+                    });
+                }
+                getAttrs(["hit_points","hit_points_max","armor_class"].push(_.values(getList)), (values) =>  {
+                    _.each(_.keys(getList), (keyname) => {
+                        settings[keyname] = values[getList[keyname]] == undefined ? "" : values[getList[keyname]];
+                    });
+                    // Bar 1
+                    if(settings["settings_bar1_link"]) {
+                        default_attr["bar1_link"] = settings["settings_bar1_link"];
+                    } else if(settings["settings_bar1_value"] || settings["settings_bar1_max"]) {
+                        if(settings["settings_bar1_value"]) {
+                            default_attr["bar1_value"] = settings["settings_bar1_value"];
+                        }
+                        if(settings["settings_bar1_max"]) {
+                            default_attr["bar1_max"] = settings["settings_bar1_max"];
+                        }
+                    } else {
+                        default_attr["bar1_value"] = values["hit_points"];
+                        default_attr["bar1_max"] = values["hit_points_max"];
+                    }
+                    // Bar 2
+                    if(settings["settings_bar2_link"]) {
+                        default_attr["bar2_link"] = settings["settings_bar2_link"];
+                    } else if(settings["settings_bar2_value"] || settings["settings_bar2_max"]) {
+                        if(settings["settings_bar2_value"]) {
+                            default_attr["bar2_value"] = settings["settings_bar2_value"];
+                        }
+                        if(settings["settings_bar2_max"]) {
+                            default_attr["bar2_max"] = settings["settings_bar2_max"];
+                        }
+                    } else {
+                        default_attr["bar2_link"] = "armor_class";
+                    }
+                    // Bar 3
+                    if(settings["settings_bar3_link"]) {
+                        default_attr["bar3_link"] = settings["settings_bar3_link"];
+                    } else if(settings["settings_bar3_value"] || settings["settings_bar3_max"]) {
+                        if(settings["settings_bar3_value"]) {
+                            default_attr["bar3_value"] = settings["settings_bar3_value"];
+                        }
+                        if(settings["settings_bar3_max"]) {
+                            default_attr["bar3_max"] = settings["settings_bar3_max"];
+                        }
+                    }
+                    setDefaultToken(default_attr);
+                });
+            });
+        };
+
         // === Module Interface
         return {
             sheetOpen: sheetOpen
@@ -778,6 +1234,7 @@
             , updateMagicTradition: updateMagicTradition
             , updateSpell: updateSpell
             , updateBulk: updateBulk
+            , updateNpcDrop: updateNpcDrop
         }
 
     })();
@@ -972,6 +1429,13 @@
             modPf2.updateSpellAttack(eventinfo.sourceAttribute,() => {modPf2.totalUpdate()});
         }
     });
+    on("change:spell_attack", (eventinfo) => { // NPC only
+        getAttrs(["sheet_type"], (values) => {
+            if( (values["sheet_type"] || "").toLowerCase() === "npc"  ) {
+                modPf2.totalUpdate();
+            }
+        });
+    });
 
     // === SPELL DC
     on(modPf2.getAttrNames(["spell_dc"]).map(attr => `change:${attr}`).join(' '), (eventinfo) => {
@@ -979,6 +1443,13 @@
         if(!eventinfo.sourceAttribute.includes("ability_select")) {
             modPf2.updateSpellDc(eventinfo.sourceAttribute,() => {modPf2.totalUpdate()});
         }
+    });
+    on("change:spell_dc", (eventinfo) => { // NPC only
+        getAttrs(["sheet_type"], (values) => {
+            if( (values["sheet_type"] || "").toLowerCase() === "npc"  ) {
+                modPf2.totalUpdate();
+            }
+        });
     });
 
     // === SPELLS: MAGIC TRADITIONS
@@ -1011,6 +1482,14 @@
     on("change:cp change:sp change:gp change:pp", (eventinfo) => {
             // console.table(eventinfo);
             modPf2.updateBulk(eventinfo.sourceAttribute);
+    });
+
+    // === NPC Compendium drops
+    on("change:npcdrop_data", (e) => {
+        // console.log("*** DEBUG change:npcdrop_data: " + JSON.stringify(e,null,"  "));
+        if(e && e.newValue && ((!e.triggerType) || (e.triggerType && e.triggerType == "compendium"))) {
+            modPf2.updateNpcDrop(e.newValue);
+        }
     });
 
     /* === EVENTS HANDLING ENDS === */

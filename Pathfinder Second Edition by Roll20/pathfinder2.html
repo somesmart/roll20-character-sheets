@@ -1,5 +1,12 @@
 <!-- This is the current version of the sheet code -->
-<input type="hidden" name="attr_version" value="2.03" />
+<input type="hidden" name="attr_version" value="2.04" />
+
+<input type="hidden" class="build_message" name="attr_build_message" value="" />
+<div class="build_message">
+    <div class="build_text">
+        <span name="attr_build_message"></span>
+    </div>
+</div>
 
 <div class="container">
     <!-- inputs the CSS uses to show & hide --->
@@ -9,7 +16,13 @@
     <!--*******************************************************-->
     <!--*************          NPC SHEET        ***************-->
     <!--*******************************************************-->
-    <div class="npc">
+    <div class="npc compendium-drop-target monsters">
+        <input type="hidden" name="attr_npcdrop_name" accept="Name" />
+        <input type="hidden" name="attr_npcdrop_uniq" accept="uniqueName" />
+        <input type="hidden" name="attr_npcdrop_category" accept="Category" />
+        <input type="hidden" name="attr_npcdrop_data" accept="data" />
+        <input type="hidden" name="attr_npc_fromcompendium" class="fromcompendium" value="" />
+
         <button class="pictos npc-settings-button settings-button" name="act_toggle_npcsettings" type="action">y</button>
 
         <input class="toggles" name="attr_toggles" type="hidden" value="" />
@@ -588,9 +601,10 @@
                         <input class="toggles" name="attr_toggles" type="hidden" value="display,settings," />
                         <div class="npc-repeating-item">
                             <div>
-                                <button class="npc-roll" name="roll_action" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{interaction_ability}}} {{desc=@{description}}}">
+                                <button class="npc-roll" name="roll_action" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{interaction_ability}}} {{info01_name=^{traits}}} {{info01=@{traits}}} {{desc=@{description}}}">
                                     <span class="npc-row-title" name="attr_name"></span>
                                 </button>
+                                <span class="npc-parenthesized-field" name="attr_traits"></span>
                                 <span name="attr_description"></span>
                             </div>
                             <button class="pictos settings-button" name="act_settings" type="action">y</button>
@@ -599,6 +613,10 @@
                             <label data-i18n-title="action_name" title="action name">
                                 <span data-i18n="name">name</span>
                                 <input data-i18n-placeholder="name" name="attr_name" placeholder="name" spellcheck="false" title="@{name}" type="text" value="" />
+                            </label>
+                            <label data-i18n-title="action_traits" title="action traits">
+                                <span data-i18n="traits">traits</span>
+                                <input data-i18n-placeholder="traits" name="attr_traits" placeholder="traits" spellcheck="false" title="@{traits}" type="text" value="" />
                             </label>
                             <label data-i18n-title="action_description" title="action description">
                                 <span data-i18n="description">description</span>
@@ -747,10 +765,11 @@
                         <input name="attr_weapon_roll_npc" type="hidden" value="{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + (@{weapon_strike}[@{text_modifier}]) + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_critical=1}}" />
                         <input name="attr_damage_roll_npc" type="hidden" value="{{roll02_name=^{damage}}} {{roll02=[[@{weapon_strike_damage} + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{weapon_strike_damage_type}}}" />
                         <input name="attr_damage_critical_roll_npc" type="hidden" value="{{roll03_name=^{critical_damage}}} {{roll03=[[(@{weapon_strike_damage} + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}}" />
+                        <input name="attr_damage_additional_roll_npc" type="hidden" value="{{roll04_name=^{damage_additional}}} {{roll04=@{weapon_strike_damage_additional}}} {{roll04_type=damage}}" />
                         <input class="toggles" name="attr_toggles" type="hidden" value="display,settings," />
                         <div class="npc-repeating-item">
                             <div>
-                                <button name="roll_ATTACK-DAMAGE-NPC" class="npc-roll" title="npc melee weapon name display & attack and damage roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll_npc} @{damage_roll_npc} @{damage_critical_roll_npc}">
+                                <button name="roll_ATTACK-DAMAGE-NPC" class="npc-roll" title="npc melee weapon name display & attack and damage roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll_npc} @{damage_roll_npc} @{damage_critical_roll_npc} @{damage_additional_roll_npc}">
                                     <span name="attr_weapon"></span>
                                 </button>
                                 <button name="roll_ATTACK-NPC" class="npc-roll" title="npc melee weapon attack display & attack only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll_npc}">
@@ -758,9 +777,10 @@
                                 </button>
                                 <span class="npc-parenthesized-field" name="attr_weapon_traits"></span>
                                 <span class="npc-row-title" data-i18n="damage">damage</span>
-                                <button name="roll_DAMAGE-NPC" class="npc-roll" title="npc melee weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll_npc} @{damage_critical_roll_npc}">
+                                <button name="roll_DAMAGE-NPC" class="npc-roll" title="npc melee weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll_npc} @{damage_critical_roll_npc} @{damage_additional_roll_npc}">
                                     <span name="attr_weapon_strike_damage"></span>&nbsp;
                                     <span name="attr_weapon_strike_damage_type"></span>
+                                    <span class="npc-dot-field" name="attr_weapon_strike_damage_additional"></span>
                                 </button>
                                 <span name="attr_weapon_notes"></span>
                             </div>
@@ -787,6 +807,10 @@
                                 <span data-i18n="damage-type">damage type</span>
                                 <input data-i18n-placeholder="slashing" name="attr_weapon_strike_damage_type" placeholder="slashing" spellcheck="false" title="@{weapon_strike_damage_type}" type="text" value="" />
                             </label>
+                            <label data-i18n-title="melee_attack_damage_additional" title="melee attack additional damage">
+                                <span data-i18n="damage_additional">additional damage</span>
+                                <input data-i18n-placeholder="damage_additional_placeholder" name="attr_weapon_strike_damage_additional" placeholder="[[1d6]] acid, [[1d6]] chaotic, and [[1d6]] evil, and [[2d6]] slashing vs. plants" spellcheck="false" title="@{weapon_strike_damage_additional}" type="text" value="" />
+                            </label>
                             <label data-i18n-title="melee_attack_notes" data-i18n-title="name" " title="melee attack notes">
                                 <span data-i18n="notes">notes</span>
                                 <input data-i18n-placeholder="other_effects" name="attr_weapon_notes" placeholder="other effects" spellcheck="false" title="@{weapon_notes}" type="text" value="" />
@@ -806,10 +830,11 @@
                         <input name="attr_weapon_roll_npc" type="hidden" value="{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + (@{weapon_strike}[@{text_modifier}]) + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_critical=1}}" />
                         <input name="attr_damage_roll_npc" type="hidden" value="{{roll02_name=^{damage}}} {{roll02=[[@{weapon_strike_damage} + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{weapon_strike_damage_type}}}" />
                         <input name="attr_damage_critical_roll_npc" type="hidden" value="{{roll03_name=^{critical_damage}}} {{roll03=[[(@{weapon_strike_damage} + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}}" />
+                        <input name="attr_damage_additional_roll_npc" type="hidden" value="{{roll04_name=^{damage_additional}}} {{roll04=@{weapon_strike_damage_additional}}} {{roll04_type=damage}}" />
                         <input class="toggles" name="attr_toggles" type="hidden" value="display,settings," />
                         <div class="npc-repeating-item">
                             <div>
-                                <button class="npc-roll" name="roll_ATTACK-DAMAGE-NPC" title="npc range weapon name display & attack and damage roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} @{weapon_roll_npc} @{damage_roll_npc} @{damage_critical_roll_npc}">
+                                <button class="npc-roll" name="roll_ATTACK-DAMAGE-NPC" title="npc range weapon name display & attack and damage roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} @{weapon_roll_npc} @{damage_roll_npc} @{damage_critical_roll_npc} @{damage_additional_roll_npc}">
                                     <span name="attr_weapon"></span>
                                 </button>
                                 <button class="npc-roll" name="roll_ATTACK-NPC" title="npc range weapon attack display & attack only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} @{weapon_roll_npc}">
@@ -817,9 +842,10 @@
                                 </button>
                                 <span class="npc-parenthesized-field" name="attr_weapon_traits"></span>
                                 <span class="npc-row-title" data-i18n="damage">damage</span>
-                                <button class="npc-roll" name="roll_DAMAGE-NPC" type="roll" title="npc range weapon damage display & damage only roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll_npc} @{damage_critical_roll_npc}">
+                                <button class="npc-roll" name="roll_DAMAGE-NPC" type="roll" title="npc range weapon damage display & damage only roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll_npc} @{damage_critical_roll_npc} @{damage_additional_roll_npc}">
                                     <span name="attr_weapon_strike_damage"></span>&nbsp;
                                     <span name="attr_weapon_strike_damage_type"></span>
+                                    <span class="npc-dot-field" name="attr_weapon_strike_damage_additional"></span>
                                 </button>
                                 <span name="attr_weapon_range"></span>
                                 <span name="attr_weapon_notes"></span>
@@ -846,6 +872,10 @@
                             <label data-i18n-title="range_attack_damage_type" title="range attack damage type">
                                 <span data-i18n="damage-type">damage type</span>
                                 <input data-i18n-placeholder="piercing" name="attr_weapon_strike_damage_type" placeholder="piercing" spellcheck="false" title="@{weapon_strike_damage_type}" type="text" value="" />
+                            </label>
+                            <label data-i18n-title="range_attack_damage_additional" title="range attack additional damage">
+                                <span data-i18n="damage_additional">additional damage</span>
+                                <input data-i18n-placeholder="damage_additional_placeholder" name="attr_weapon_strike_damage_additional" placeholder="[[1d6]] acid, [[1d6]] chaotic, and [[1d6]] evil, and [[2d6]] slashing vs. plants" spellcheck="false" title="@{weapon_strike_damage_additional}" type="text" value="" />
                             </label>
                             <label data-i18n-title="range_weapon_range" title="range weapon range">
                                 <span data-i18n="range">range</span>
@@ -1348,6 +1378,7 @@
                         <input name="attr_weapon_roll" type="hidden" value="{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + @{weapon_strike}[@{text_modifier}] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_info=@{weapon_traits}}} {{roll01_critical=1}}" />
                         <input name="attr_damage_roll" type="hidden" value="{{roll02_name=^{damage}}} {{roll02=[[@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{damage_info}}}" />
                         <input name="attr_damage_critical_roll" type="hidden" value="{{roll03_name=^{critical_damage}}} {{roll03=[[(@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}} {{roll03_info=@{damage_info}}}" />
+                        <input name="attr_damage_additional_roll" type="hidden" value="{{roll04_name=^{damage_additional}}} {{roll04=@{damage_additional}}} {{roll04_type=damage}}" />
                         <!-- Show & hide hidden areas -->
                         <input class="toggles" name="attr_toggles" type="hidden" value="display,settings," />
                         <div class="grid melee-display-grid">
@@ -1355,7 +1386,7 @@
                                 y
                             </button>
                             <span class="sublabel darkred" data-i18n="weapon">weapon</span>
-                            <button class="melee-display-weapon" data-i18n-title="weapon_name_display_attack_and_damage_roll" name="roll_ATTACK-DAMAGE" title="weapon name display & attack and damage roll" type="roll"  value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll} @{damage_roll} @{damage_critical_roll}">
+                            <button class="melee-display-weapon" data-i18n-title="weapon_name_display_attack_and_damage_roll" name="roll_ATTACK-DAMAGE" title="weapon name display & attack and damage roll" type="roll"  value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll} @{damage_roll} @{damage_critical_roll} @{damage_additional_roll}">
                                 <span name="attr_weapon"></span>
                             </button>
                             <button data-i18n-title="show_or_hide_weapon_notes" name="act_collapse" title="show or hide weapon notes" type="action">
@@ -1366,7 +1397,7 @@
                             <button class="melee-display-attack" data-i18n-title="weapon_attack_display_attack_and_attack_only_roll" name="roll_ATTACK" title="weapon attack display & attack only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{weapon_roll}">
                                 <span class="weapon" name="attr_weapon_display"></span>
                             </button>
-                            <button data-i18n-title="weapon_damage_display_and_damage_only_roll" class="melee-display-damage" name="roll_DAMAGE" title="weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll} @{damage_critical_roll}">
+                            <button data-i18n-title="weapon_damage_display_and_damage_only_roll" class="melee-display-damage" name="roll_DAMAGE" title="weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{melee_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll} @{damage_critical_roll} @{damage_additional_roll}">
                                 <span class="weapon" name="attr_damage_display"></span>
                             </button>
                             <span class="collapse" name="attr_weapon_notes"></span>
@@ -1483,6 +1514,12 @@
                                 </label>
                             </div>
                             <div>
+                                <label data-i18n-title="melee_attack_damage_additional" title="melee attack additional damage">
+                                    <span class="sublabel darkred" data-i18n="damage_additional">additional damage</span>
+                                    <input data-i18n-placeholder="damage_additional_placeholder" name="attr_damage_additional" placeholder="[[1d6]] acid, [[1d6]] chaotic, and [[1d6]] evil, and [[2d6]] slashing vs. plants" spellcheck="false" title="@{damage_additional}" type="text" value="" />
+                                </label>
+                            </div>
+                            <div>
                                 <label data-i18n-title="melee_weapon_notes" title="melee weapon notes">
                                     <h2 data-i18n="notes">Notes</h2>
                                     <textarea data-i18n-placeholder="notes" name="attr_weapon_notes" placeholder="notes" spellcheck="false" title="@{weapon_notes}" value=""></textarea>
@@ -1503,6 +1540,7 @@
                         <input name="attr_weapon_roll" type="hidden" value="{{roll01_name=^{attack}}} {{roll01=[[1d20cs20cf1 + @{weapon_strike}[@{text_modifier}] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_type=attack}} {{roll01_info=@{weapon_traits}}} {{roll01_critical=1}}" />
                         <input name="attr_damage_roll" type="hidden" value="{{roll02_name=^{damage}}} {{roll02=[[@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{damage_info}}}" />
                         <input name="attr_damage_critical_roll" type="hidden" value="{{roll03_name=^{critical_damage}}} {{roll03=[[(@{damage_dice_query}@{damage_dice_size} + @{damage_ability}[@{text_ability_modifier}] + @{damage_weapon_specialization}[WEAPON SPECIALIZATION] + @{damage_temporary}[TEMP] + @{damage_other}[OTHER] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}} {{roll03_info=@{damage_info}}}" />
+                        <input name="attr_damage_additional_roll" type="hidden" value="{{roll04_name=^{damage_additional}}} {{roll04=@{damage_additional}}} {{roll04_type=damage}}" />
                         <!-- Show & hide hidden areas -->
                         <input class="toggles" name="attr_toggles" type="hidden" value="display,settings," />
                         <div class="grid range-display-grid">
@@ -1510,7 +1548,7 @@
                                 y
                             </button>
                             <span class="sublabel darkred" data-i18n="weapon">weapon</span>
-                            <button data-i18n-title="weapon_name_display_attack_and_damage_roll" class="ranged-display-weapon" name="roll_ATTACK-DAMAGE" type="roll" title="weapon name display & attack and damage roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} {{notes=@{weapon_notes}}} @{weapon_roll} @{damage_roll} @{damage_critical_roll}">
+                            <button data-i18n-title="weapon_name_display_attack_and_damage_roll" class="ranged-display-weapon" name="roll_ATTACK-DAMAGE" type="roll" title="weapon name display & attack and damage roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} {{notes=@{weapon_notes}}} @{weapon_roll} @{damage_roll} @{damage_critical_roll} @{damage_additional_roll}">
                                 <span name="attr_weapon"></span>
                             </button>
                             <button data-i18n-title="show_or_hide_weapon_notes" name="act_collapse" title="show or hide weapon notes" type="action">
@@ -1521,7 +1559,7 @@
                             <button class="ranged-display-attack" data-i18n-title="weapon_attack_display_attack_and_attack_only_roll" name="roll_ATTACK" type="roll" title="weapon attack display & attack only roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{info01_name=^{range}}} {{info01=@{weapon_range}}} {{notes=@{weapon_notes}}} @{weapon_roll}">
                                 <span class="weapon" name="attr_weapon_display"></span>
                             </button>
-                            <button class="ranged-display-damage" data-i18n-title="weapon_damage_display_and_damage_only_roll" name="roll_DAMAGE" title="weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll} @{damage_critical_roll}">
+                            <button class="ranged-display-damage" data-i18n-title="weapon_damage_display_and_damage_only_roll" name="roll_DAMAGE" title="weapon damage display & damage only roll" type="roll" value="@{whispertype} &{template:rolls}  {{charactername=@{character_name}}} {{header=@{weapon}}} {{subheader=^{ranged_strike}}} {{notes_show=@{roll_show_notes}}} {{notes=@{weapon_notes}}} @{damage_roll} @{damage_critical_roll} @{damage_additional_roll}">
                                 <span class="weapon" name="attr_damage_display"></span>
                             </button>
                             <span class="collapse" name="attr_weapon_notes"></span>
@@ -1641,6 +1679,12 @@
                                 <label data-i18n-title="range_weapon_damage_supplementary_effects" title="range weapon damage supplementary effects">
                                     <span class="sublabel darkred" data-i18n="effects">effects</span>
                                     <input data-i18n-placeholder="effects" name="attr_damage_effects" placeholder="effects" spellcheck="false" title="@{damage_effects}" type="text" value="" />
+                                </label>
+                            </div>
+                            <div>
+                                <label data-i18n-title="melee_attack_damage_additional" title="melee attack additional damage">
+                                    <span class="sublabel darkred" data-i18n="damage_additional">additional damage</span>
+                                    <input data-i18n-placeholder="damage_additional_placeholder" name="attr_damage_additional" placeholder="[[1d6]] acid, [[1d6]] chaotic, and [[1d6]] evil, and [[2d6]] slashing vs. plants" spellcheck="false" title="@{damage_additional}" type="text" value="" />
                                 </label>
                             </div>
                             <div>
@@ -4212,6 +4256,18 @@
                         </label>
                     </div>
                 </div>
+                <div class="magic-tradition background-color npc-spellcaster-field">
+                    <div class="grid magic-tradition-grid">
+                        <label class="spellcaster" title="prepared spell caster">
+                            <input name="attr_spellcaster_prepared" title="@{spellcaster_prepared}" type="checkbox" value="prepared" />
+                            <span data-i18n="prepared">prepared</span>
+                        </label>
+                        <label class="spellcaster" title="spontaneous spell caster">
+                            <input name="attr_spellcaster_spontaneous" title="@{spellcaster_spontaneous}" type="checkbox" value="spontaneous" />
+                            <span data-i18n="spontaneous">spontaneous</span>
+                        </label>
+                    </div>
+                </div>
                 <div class="spellslots background-color">
                     <h1 data-i18n="spell_slots_per_day">spell slots per day</h1>
                     <label class="spellslots-row spellslots-row-focus">
@@ -5370,147 +5426,101 @@
                     </div>
                     <input class="toggles" name="attr_toggles" type="hidden" value="" />
                     <fieldset class='repeating_spellfocus'>
-                            <div class="spell-panel-row">
-                                <input name="attr_toggles" type="hidden" value="display,settings," />
-                        <button class="sheet-pictos sheet-settings-button" name="act_settings" type="action">y</button>
-                        <button class="pc-spellcaster-field" type='roll' title='%{spellroll}' name='roll_spellroll' value="@{whispertype} &{template:rolls} {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{@{school}} ^{focus_spell} ^{level} @{spelllevel}}} {{desc=@{description}}}{{info01_name=^{domain}}} {{info01=@{domain}}}{{info02_name=^{cast}}} {{info02=@{cast}}}{{info03_name=^{traits}}} {{info03=@{traits}}} {{info04_name=^{range}}} {{info04=@{range}}} {{info05_name=^{target}}} {{info05=@{target}}} {{info06_name=^{area}}} {{info06=@{area}}} {{info07_name=^{duration}}} {{info07=@{duration}}}  @{save_checkbox} @{attack_checkbox} @{damage_checkbox}"><span name="attr_name"></span></button>
-                        <button class="npc-spellcaster-field" type='roll' title='%{npcspellroll}' name='roll_npcspellroll' value="@{whispertype} &{template:rolls} {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{@{school}} ^{focus_spell} ^{level} @{spelllevel}}} {{desc=@{description}}}{{info01_name=^{domain}}} {{info01=@{domain}}}{{info02_name=^{cast}}} {{info02=@{cast}}}{{info03_name=^{traits}}} {{info03=@{traits}}} {{info04_name=^{range}}} {{info04=@{range}}} {{info05_name=^{target}}} {{info05=@{target}}} {{info06_name=^{area}}} {{info06=@{area}}} {{info07_name=^{duration}}} {{info07=@{duration}}}  @{npc_save_checkbox} @{npc_attack_checkbox} @{damage_checkbox}"><span name="attr_name"></span></button>
-                        <span name="attr_school" title="@{school}"></span>
-                        <div class='settings'>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="name">NAME</span>
-                                <input type='text' title='@{name}' name='attr_name' placeholder="Acid Arrow" spellcheck="false" />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n='level'>LEVEL</span>
-                                <input type='number' name='attr_spelllevel' value='0'>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="domain">domain</span>
-                                <input type="text" title="@{domain}" name="attr_domain" placeholder="freedom" spellcheck="false" />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="school">SCHOOL</span>
-                                <select class="simple" name="attr_school">
-                                    <option data-i18n='abjuration' value='abjuration' selected>ABJURATION</option>
-                                    <option data-i18n='conjuration' value='conjuration'>CONJURATION</option>
-                                    <option data-i18n='divination' value='divination'>DIVINATION</option>
-                                    <option data-i18n='enchantment' value='enchantment'>ENCHANTMENT</option>
-                                    <option data-i18n='evocation' value='evocation'>EVOCATION</option>
-                                    <option data-i18n='illusion' value='illusion'>ILLUSION</option>
-                                    <option data-i18n='necromancy' value='necromancy'>NECROMANCY</option>
-                                    <option data-i18n='transmutation' value='transmutation'>TRANSMUTATION</option>
-                                </select>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="cast">Cast</span>
-                                <input name="attr_cast" placeholder="somatic, verbal" spellcheck="false" title="@{cast}" type="text"  />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="traits">Traits</span>
-                                <input name="attr_traits" placeholder="traits" spellcheck="false" title="@{traits}" type="text" />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n='range'>RANGE</span>
-                                <input name='attr_range' placeholder="120 feet" spellcheck="false" title='@{range}' type='text' />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n='target'>TARGET</span>
-                                <input name='attr_target' placeholder="1 creature or object" spellcheck="false" title='@{target}' type='text' />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n='area'>AREA</span>
-                                <input name='attr_area' placeholder="120 feet" spellcheck="false" title='@{area}' type='text'  />
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n='duration'>DURATION</span>
-                                <input name='attr_duration' value="" placeholder="5 minutes" spellcheck="false" title='@{duration}' type='text' />
-                            </label>
-                            <label class="bordertop">
-                                <span class='sublabel darkred' data-i18n='attack'>attack</span>
-                                <span class="pc-spellcaster-field">
-                                    <input name='attr_attack_checkbox' title='@{attack_checkbox}' type='checkbox' value="{{roll01=[[1d20cs20cf1 + @{spellattack_rank}[Prof] + @{level}[Level] + @{spellattack_ability}[ABI] + @{spellattack_misc}[MISC] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_name=^{attack}}} {{roll01_type=attack}}  {{roll01_critical=1}}" />
-                                </span>
-                                <span class="npc-spellcaster-field">
-                                    <input name='attr_npc_attack_checkbox' title='@{npc_attack_checkbox}' type='checkbox' value="{{roll01=[[1d20cs20cf1 + @{spell_attack}[ATK] + @{spellattack_misc}[MISC] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_name=^{attack}}} {{roll01_type=attack}}  {{roll01_critical=1}}" />
-                                </span>
-                                <span class="npc-spellcaster-field">
-                                    <input readonly type="number" name="attr_spellattack" title="@{spellattack}" value="0" />
-                                </span>
-                                <span class="pc-spellcaster-field">
-                                    <select class='simple' name='attr_spellattack_rank' title="@{spellattack_rank}">
-                                        <option value='0' data-i18n='untrained'>UNTRAINED</option>
-                                        <option value='2' data-i18n='trained' selected>TRAINED</option>
-                                        <option value='4' data-i18n='expert'>EXPERT</option>
-                                        <option value='6' data-i18n='master'>MASTER</option>
-                                        <option value='8' data-i18n='legendary'>LEGENDARY</option>
+                        <div class="spell-panel-row">
+                            <input name="attr_toggles" type="hidden" value="display,settings," />
+                            <button class="sheet-pictos sheet-settings-button" name="act_settings" type="action">y</button>
+                            <button class="pc-spellcaster-field" type='roll' title='%{spellroll}' name='roll_spellroll' value="@{whispertype} &{template:rolls} {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{@{school}} ^{focus_spell} ^{level} @{spelllevel}}} {{desc=@{description}}}{{info01_name=^{domain}}} {{info01=@{domain}}}{{info02_name=^{cast}}} {{info02=@{cast}}}{{info03_name=^{traits}}} {{info03=@{traits}}} {{info04_name=^{range}}} {{info04=@{range}}} {{info05_name=^{target}}} {{info05=@{target}}} {{info06_name=^{area}}} {{info06=@{area}}} {{info07_name=^{duration}}} {{info07=@{duration}}}  @{save_checkbox} @{attack_checkbox} @{damage_checkbox}"><span name="attr_name"></span></button>
+                            <button class="npc-spellcaster-field" type='roll' title='%{npcspellroll}' name='roll_npcspellroll' value="@{whispertype} &{template:rolls} {{charactername=@{character_name}}} {{header=@{name}}} {{subheader=^{@{school}} ^{focus_spell} ^{level} @{spelllevel}}} {{desc=@{description}}}{{info01_name=^{domain}}} {{info01=@{domain}}}{{info02_name=^{cast}}} {{info02=@{cast}}}{{info03_name=^{traits}}} {{info03=@{traits}}} {{info04_name=^{range}}} {{info04=@{range}}} {{info05_name=^{target}}} {{info05=@{target}}} {{info06_name=^{area}}} {{info06=@{area}}} {{info07_name=^{duration}}} {{info07=@{duration}}}  @{npc_save_checkbox} @{npc_attack_checkbox} @{damage_checkbox}"><span name="attr_name"></span></button>
+                            <span name="attr_school" title="@{school}"></span>
+                            <div class='settings'>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="name">NAME</span>
+                                    <input type='text' title='@{name}' name='attr_name' placeholder="Acid Arrow" spellcheck="false" />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n='level'>LEVEL</span>
+                                    <input type='number' name='attr_spelllevel' value='0'>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="domain">domain</span>
+                                    <input type="text" title="@{domain}" name="attr_domain" placeholder="freedom" spellcheck="false" />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="school">SCHOOL</span>
+                                    <select class="simple" name="attr_school">
+                                        <option data-i18n='abjuration' value='abjuration' selected>ABJURATION</option>
+                                        <option data-i18n='conjuration' value='conjuration'>CONJURATION</option>
+                                        <option data-i18n='divination' value='divination'>DIVINATION</option>
+                                        <option data-i18n='enchantment' value='enchantment'>ENCHANTMENT</option>
+                                        <option data-i18n='evocation' value='evocation'>EVOCATION</option>
+                                        <option data-i18n='illusion' value='illusion'>ILLUSION</option>
+                                        <option data-i18n='necromancy' value='necromancy'>NECROMANCY</option>
+                                        <option data-i18n='transmutation' value='transmutation'>TRANSMUTATION</option>
                                     </select>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="cast">Cast</span>
+                                    <input name="attr_cast" placeholder="somatic, verbal" spellcheck="false" title="@{cast}" type="text"  />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="traits">Traits</span>
+                                    <input name="attr_traits" placeholder="traits" spellcheck="false" title="@{traits}" type="text" />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n='range'>RANGE</span>
+                                    <input name='attr_range' placeholder="120 feet" spellcheck="false" title='@{range}' type='text' />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n='target'>TARGET</span>
+                                    <input name='attr_target' placeholder="1 creature or object" spellcheck="false" title='@{target}' type='text' />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n='area'>AREA</span>
+                                    <input name='attr_area' placeholder="120 feet" spellcheck="false" title='@{area}' type='text'  />
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n='duration'>DURATION</span>
+                                    <input name='attr_duration' value="" placeholder="5 minutes" spellcheck="false" title='@{duration}' type='text' />
+                                </label>
+                                <label class="bordertop">
+                                    <span class='sublabel darkred' data-i18n='attack'>attack</span>
+                                    <span class="pc-spellcaster-field">
+                                        <input name='attr_attack_checkbox' title='@{attack_checkbox}' type='checkbox' value="{{roll01=[[1d20cs20cf1 + @{spellattack_rank}[Prof] + @{level}[Level] + @{spellattack_ability}[ABI] + @{spellattack_misc}[MISC] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_name=^{attack}}} {{roll01_type=attack}}  {{roll01_critical=1}}" />
+                                    </span>
+                                    <span class="npc-spellcaster-field">
+                                        <input name='attr_npc_attack_checkbox' title='@{npc_attack_checkbox}' type='checkbox' value="{{roll01=[[1d20cs20cf1 + @{spell_attack}[ATK] + @{spellattack_misc}[MISC] + (@{query_roll_bonus})[@{text_bonus}]]]}} {{roll01_name=^{attack}}} {{roll01_type=attack}}  {{roll01_critical=1}}" />
+                                    </span>
+                                    <span class="npc-spellcaster-field">
+                                        <input readonly type="number" name="attr_spellattack" title="@{spellattack}" value="0" />
+                                    </span>
+                                    <span class="pc-spellcaster-field">
+                                        <select class='simple' name='attr_spellattack_rank' title="@{spellattack_rank}">
+                                            <option value='0' data-i18n='untrained'>UNTRAINED</option>
+                                            <option value='2' data-i18n='trained' selected>TRAINED</option>
+                                            <option value='4' data-i18n='expert'>EXPERT</option>
+                                            <option value='6' data-i18n='master'>MASTER</option>
+                                            <option value='8' data-i18n='legendary'>LEGENDARY</option>
+                                        </select>
+                                        +
+                                        <select class='simple' name='attr_spellattack_ability' title='@{spellattack_ability}'>
+                                            <option value='0' selected='selected'>N/A</option>
+                                            <option value='@{strength_modifier}'>STR</option>
+                                            <option value='@{dexterity_modifier}'>DEX</option>
+                                            <option value='@{constitution_modifier}'>CON</option>
+                                            <option value='@{intelligence_modifier}'>INT</option>
+                                            <option value='@{wisdom_modifier}'>WIS</option>
+                                            <option value='@{charisma_modifier}'>CHA</option>
+                                        </select>
+                                    </span>
                                     +
-                                    <select class='simple' name='attr_spellattack_ability' title='@{spellattack_ability}'>
-                                        <option value='0' selected='selected'>N/A</option>
-                                        <option value='@{strength_modifier}'>STR</option>
-                                        <option value='@{dexterity_modifier}'>DEX</option>
-                                        <option value='@{constitution_modifier}'>CON</option>
-                                        <option value='@{intelligence_modifier}'>INT</option>
-                                        <option value='@{wisdom_modifier}'>WIS</option>
-                                        <option value='@{charisma_modifier}'>CHA</option>
-                                    </select>
-                                </span>
-                                +
-                                <input class="5em" name='attr_spellattack_misc' placeholder="0" spellcheck="false" title='@{spellattack_misc}' type="text" value="0" />
-                            </label>
-                            <label class="bordertop">
-                                <span class="sublabel darkred" data-i18n='damage'>damage</span>
-                                <input name='attr_damage_checkbox' title='@{damage_checkbox}' type='checkbox' value="{{roll02_name=^{damage}}} {{roll02=[[@{damage_dice} + (@{damage_ability}[ABI]) + @{damage_misc}[MISC] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{damage_type}}} {{roll03_name=^{critical_damage}}} {{roll03=[[(@{damage_dice}+@{damage_ability}[ABI] + @{damage_misc}[MISC] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}} {{roll03_info=@{damage_type}}}" />
-                                <input class="5em" name="attr_damage_dice" placeholder="1d6" spellcheck="false" title="@{damage_dice}" type="text" />
-                                +
-                                <select class="simple" name='attr_damage_ability' title='@{damage_ability}'>
-                                    <option value="0" selected>N/A</option>
-                                    <option value='@{strength_modifier}'>STR</option>
-                                    <option value='@{dexterity_modifier}'>DEX</option>
-                                    <option value='@{constitution_modifier}'>CON</option>
-                                    <option value='@{intelligence_modifier}'>INT</option>
-                                    <option value='@{wisdom_modifier}'>WIS</option>
-                                    <option value='@{charisma_modifier}'>CHA</option>
-                                </select>
-                                +
-                                <input class="5em" name='attr_damage_misc' placeholder="0" spellcheck="false" title='@{damage_misc}' type="text" value="0" />
-                            </label>
-                            <label title="damage type">
-                                <span class="sublabel darkred" data-i18n='type'>TYPE</span>
-                                <input name='attr_damage_type' placeholder="acid" spellcheck="false" title='@{damage_type}' type='text' />
-                            </label>
-                            <label class='bordertop' data-i18n-title="saving_throw" title="Saving Throw" >
-                                <span class='sublabel' data-i18n="saving_throw">Saving Throw</span>
-                                <span class="pc-spellcaster-field">
-                                    <input type="checkbox" title='@{save_checkbox}' name='attr_save_checkbox' value="{{savedc=[[10 + @{spelldc_rank}[DC Proficiency]  + @{level}[Level] + @{spelldc_ability}[ABI] + @{spelldc_misc}[MISC]]]}} {{savetype=^{@{save_type}}}} {{savecriticalsuccess=@{save_critical_success}}} {{savesuccess=@{save_success}}} {{savecriticalfailure=@{save_critical_failure}}} {{savefailure=@{save_failure}}}" />
-                                </span>
-                                <span class="npc-spellcaster-field">
-                                    <input type="checkbox" title='@{npc_save_checkbox}' name='attr_npc_save_checkbox' value="{{savedc=[[@{spell_dc}[DC] + @{spelldc_misc}[MISC]]]}} {{savetype=^{@{save_type}}}} {{savecriticalsuccess=@{save_critical_success}}} {{savesuccess=@{save_success}}} {{savecriticalfailure=@{save_critical_failure}}} {{savefailure=@{save_failure}}}" />
-                                </span>
-                                <select class='simple' title='@{save_type}' name='attr_save_type'>
-                                    <option value="empty-string" selected='selected'>-</option>
-                                    <option value='fortitude' data-i18n='fortitude'>fortitude</option>
-                                    <option value='reflex' data-i18n='reflex'>reflex</option>
-                                    <option value='will' data-i18n='will'>will</option>
-                                </select>
-                                <div class="spells-savingthrow-dc">
-                                <span class="simple" data-i18n="dc">DC</span>
-                                <span class="simple">=</span>
-                                <span class="npc-spellcaster-field">
-                                    <input readonly type="number" name="attr_spelldc" title="@{spelldc}" value="0" />
-                                </span>
-                                <span class="pc-spellcaster-field">
-                                    <span class="simple">10 +</span>
-                                    <select class='simple' name='attr_spelldc_rank' title="@{spelldc_rank}">
-                                        <option value='0' data-i18n='untrained'>UNTRAINED</option>
-                                        <option value='2' data-i18n='trained'>TRAINED</option>
-                                        <option value='4' data-i18n='expert'>EXPERT</option>
-                                        <option value='6' data-i18n='master'>MASTER</option>
-                                        <option value='8' data-i18n='legendary'>LEGENDARY</option>
-                                    </select>
-                                    <span class="simple">+</span>
-                                    <select class="simple" title='@{spelldc_ability}' name='attr_spelldc_ability'>
+                                    <input class="5em" name='attr_spellattack_misc' placeholder="0" spellcheck="false" title='@{spellattack_misc}' type="text" value="0" />
+                                </label>
+                                <label class="bordertop">
+                                    <span class="sublabel darkred" data-i18n='damage'>damage</span>
+                                    <input name='attr_damage_checkbox' title='@{damage_checkbox}' type='checkbox' value="{{roll02_name=^{damage}}} {{roll02=[[@{damage_dice} + (@{damage_ability}[ABI]) + @{damage_misc}[MISC] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}]]]}} {{roll02_type=damage}} {{roll02_info=@{damage_type}}} {{roll03_name=^{critical_damage}}} {{roll03=[[(@{damage_dice}+@{damage_ability}[ABI] + @{damage_misc}[MISC] + @{query_roll_damage_bonus}[@{text_roll_damage_bonus}])*2]]}} {{roll03_type=critical-damage}} {{roll03_info=@{damage_type}}}" />
+                                    <input class="5em" name="attr_damage_dice" placeholder="1d6" spellcheck="false" title="@{damage_dice}" type="text" />
+                                    +
+                                    <select class="simple" name='attr_damage_ability' title='@{damage_ability}'>
                                         <option value="0" selected>N/A</option>
                                         <option value='@{strength_modifier}'>STR</option>
                                         <option value='@{dexterity_modifier}'>DEX</option>
@@ -5519,33 +5529,79 @@
                                         <option value='@{wisdom_modifier}'>WIS</option>
                                         <option value='@{charisma_modifier}'>CHA</option>
                                     </select>
-                                </span><!-- pc-spellcaster-field -->
-                                <span class="simple">+</span>
-                                <input class='5em' name='attr_spelldc_misc' placeholder="0" spellcheck="false" title="@{spelldc_misc}" type='text' value='0' />
+                                    +
+                                    <input class="5em" name='attr_damage_misc' placeholder="0" spellcheck="false" title='@{damage_misc}' type="text" value="0" />
+                                </label>
+                                <label title="damage type">
+                                    <span class="sublabel darkred" data-i18n='type'>TYPE</span>
+                                    <input name='attr_damage_type' placeholder="acid" spellcheck="false" title='@{damage_type}' type='text' />
+                                </label>
+                                <label class='bordertop' data-i18n-title="saving_throw" title="Saving Throw" >
+                                    <span class='sublabel' data-i18n="saving_throw">Saving Throw</span>
+                                    <span class="pc-spellcaster-field">
+                                        <input type="checkbox" title='@{save_checkbox}' name='attr_save_checkbox' value="{{savedc=[[10 + @{spelldc_rank}[DC Proficiency]  + @{level}[Level] + @{spelldc_ability}[ABI] + @{spelldc_misc}[MISC]]]}} {{savetype=^{@{save_type}}}} {{savecriticalsuccess=@{save_critical_success}}} {{savesuccess=@{save_success}}} {{savecriticalfailure=@{save_critical_failure}}} {{savefailure=@{save_failure}}}" />
+                                    </span>
+                                    <span class="npc-spellcaster-field">
+                                        <input type="checkbox" title='@{npc_save_checkbox}' name='attr_npc_save_checkbox' value="{{savedc=[[@{spell_dc}[DC] + @{spelldc_misc}[MISC]]]}} {{savetype=^{@{save_type}}}} {{savecriticalsuccess=@{save_critical_success}}} {{savesuccess=@{save_success}}} {{savecriticalfailure=@{save_critical_failure}}} {{savefailure=@{save_failure}}}" />
+                                    </span>
+                                    <select class='simple' title='@{save_type}' name='attr_save_type'>
+                                        <option value="empty-string" selected='selected'>-</option>
+                                        <option value='fortitude' data-i18n='fortitude'>fortitude</option>
+                                        <option value='reflex' data-i18n='reflex'>reflex</option>
+                                        <option value='will' data-i18n='will'>will</option>
+                                    </select>
+                                    <div class="spells-savingthrow-dc">
+                                    <span class="simple" data-i18n="dc">DC</span>
+                                    <span class="simple">=</span>
+                                    <span class="npc-spellcaster-field">
+                                        <input readonly type="number" name="attr_spelldc" title="@{spelldc}" value="0" />
+                                    </span>
+                                    <span class="pc-spellcaster-field">
+                                        <span class="simple">10 +</span>
+                                        <select class='simple' name='attr_spelldc_rank' title="@{spelldc_rank}">
+                                            <option value='0' data-i18n='untrained'>UNTRAINED</option>
+                                            <option value='2' data-i18n='trained'>TRAINED</option>
+                                            <option value='4' data-i18n='expert'>EXPERT</option>
+                                            <option value='6' data-i18n='master'>MASTER</option>
+                                            <option value='8' data-i18n='legendary'>LEGENDARY</option>
+                                        </select>
+                                        <span class="simple">+</span>
+                                        <select class="simple" title='@{spelldc_ability}' name='attr_spelldc_ability'>
+                                            <option value="0" selected>N/A</option>
+                                            <option value='@{strength_modifier}'>STR</option>
+                                            <option value='@{dexterity_modifier}'>DEX</option>
+                                            <option value='@{constitution_modifier}'>CON</option>
+                                            <option value='@{intelligence_modifier}'>INT</option>
+                                            <option value='@{wisdom_modifier}'>WIS</option>
+                                            <option value='@{charisma_modifier}'>CHA</option>
+                                        </select>
+                                    </span><!-- pc-spellcaster-field -->
+                                    <span class="simple">+</span>
+                                    <input class='5em' name='attr_spelldc_misc' placeholder="0" spellcheck="false" title="@{spelldc_misc}" type='text' value='0' />
+                                </div>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="critical_success">critical success</span>
+                                    <textarea name="attr_save_critical_success" placeholder="Critical Success" spellcheck="false" title='@{save_critical_success}'></textarea>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="success">success</span>
+                                    <textarea name="attr_save_success" placeholder="Success" spellcheck="false" title='@{save_success}'></textarea>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="failure">Failure</span>
+                                    <textarea name="attr_save_failure" placeholder="Failure" spellcheck="false" title='@{save_failure}'></textarea>
+                                </label>
+                                <label class="sublabel">
+                                    <span class="sublabel darkred" data-i18n="critical_failure">critical failure</span>
+                                    <textarea name="attr_save_critical_failure" placeholder="Critical Failure" spellcheck="false" title='@{save_critical_failure}'></textarea>
+                                </label>
+                                <label class='bordertop' data-i18n-title='description' title="description" >
+                                    <span class="sublabel darkred" data-i18n="description">description</span>
+                                    <textarea name='attr_description' data-i18n-placeholder="description" placeholder="description" spellcheck="false" title='@{description}'></textarea>
+                                </label>
                             </div>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="critical_success">critical success</span>
-                                <textarea name="attr_save_critical_success" placeholder="Critical Success" spellcheck="false" title='@{save_critical_success}'></textarea>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="success">success</span>
-                                <textarea name="attr_save_success" placeholder="Success" spellcheck="false" title='@{save_success}'></textarea>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="failure">Failure</span>
-                                <textarea name="attr_save_failure" placeholder="Failure" spellcheck="false" title='@{save_failure}'></textarea>
-                            </label>
-                            <label class="sublabel">
-                                <span class="sublabel darkred" data-i18n="critical_failure">critical failure</span>
-                                <textarea name="attr_save_critical_failure" placeholder="Critical Failure" spellcheck="false" title='@{save_critical_failure}'></textarea>
-                            </label>
-
-                            <label class='bordertop' data-i18n-title='description' title="description" >
-                                <span class="sublabel darkred" data-i18n="description">description</span>
-                                <textarea name='attr_description' data-i18n-placeholder="description" placeholder="description" spellcheck="false" title='@{description}'></textarea>
-                            </label>
-                        </div></div>
+                        </div>
                     </fieldset>
                 </div>
                 <input class='toggle cantrips' name='attr_casts_cantrips' type='checkbox' value='1' checked="checked" />
@@ -6661,6 +6717,17 @@
 <input name="attr_text_#_damage_dice" type="hidden" value="# Damage Dice" />
 <input name="attr_text_use" type="hidden" value="Use" />
 
+<!-- Token Settings  -->
+<input type="hidden" name="settings_bar1_value" value="hit_points_max" />
+<input type="hidden" name="settings_bar1_max" value="hit_points_max" />
+<input type="hidden" name="settings_bar1_link" value="" />
+<input type="hidden" name="settings_bar2_value" value="" />
+<input type="hidden" name="settings_bar2_max" value="" />
+<input type="hidden" name="settings_bar2_link" value="" />
+<input type="hidden" name="settings_bar3_value" value="" />
+<input type="hidden" name="settings_bar3_max" value="" />
+<input type="hidden" name="settings_bar3_link" value="armor_class" />
+
 <!--*******************************************************-->
 <!--*************        ROLL TEMPLATE      ***************-->
 <!--*******************************************************-->
@@ -6847,6 +6914,15 @@
 
         /* === GLOBAL VARIABLES === */
         var global_sheet_init_done = 0;
+        // -- TODO: verify squares
+        const global_sizes = [
+            {size:"tiny", squares: 1.0}
+            , {size:"small", squares: 1.0}
+            , {size:"medium", squares: 1.0}
+            , {size:"large", squares: 2.0}
+            , {size:"huge", squares: 3.0}
+            , {size:"gargantuan", squares: 4.0}
+        ];
         // Attribute names by category
         const global_attributes_by_category = {
             "abilities": ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma']
@@ -6863,7 +6939,7 @@
             , "ac_fields": ["ability","ability_select","dc_rank","proficiency","item","temporary","dc_base","cap","shield_ac_bonus","shield_temporary"]
             , "hit_points": ["hit_points_ancestry","hit_points_class","hit_points_other","hit_points_item"]
             , "repeating_attacks": ["melee-strikes","ranged-strikes"]
-            , "attacks_fields": ["weapon","weapon_ability_select","weapon_ability","weapon_proficiency","weapon_rank","weapon_item","weapon_temporary","weapon_traits","damage_dice","damage_dice_size","damage_ability_select","damage_ability","damage_b","damage_p","damage_s","damage_weapon_specialization","damage_temporary","damage_other","damage_effects"]
+            , "attacks_fields": ["weapon","weapon_ability_select","weapon_ability","weapon_proficiency","weapon_rank","weapon_item","weapon_temporary","weapon_traits","damage_dice","damage_dice_size","damage_ability_select","damage_ability","damage_b","damage_p","damage_s","damage_weapon_specialization","damage_temporary","damage_other","damage_effects","damage_additional"]
             , "perception": ["perception_ability_select","perception_ability","perception_rank","perception_proficiency","perception_item","perception_temporary"]
             , "class_dc": ["class_dc_key_ability_select","class_dc_key_ability","class_dc_proficiency","class_dc_rank","class_dc_item","class_dc_temporary"]
             , "spell_attack": ["spell_attack_key_ability_select","spell_attack_key_ability", "spell_attack_rank","spell_attack_proficiency","spell_attack_temporary"]
@@ -6876,7 +6952,13 @@
             , "bulks_fields": ["quantity","bulk"]
             , "translatables": ["modifier","ability_modifier","bonus","roll_bonus","roll_damage_bonus","#_damage_dice","use"]
         };
-
+        // NPC attributes object for building NPC from Compendium
+        const global_npc_attributes = {
+            basics: ["npc_type","level","alignment","size","traits","perception","senses","languages","acrobatics","acrobatics_notes","arcana","arcana_notes","athletics","athletics_notes","crafting","crafting_notes","deception","deception_notes","diplomacy","diplomacy_notes","intimidation","intimidation_notes","medicine","medicine_notes","nature","nature_notes","occultism","occultism_notes","performance","performance_notes","religion","religion_notes","society","society_notes","stealth","stealth_notes","survival","survival_notes","thievery","thievery_notes","strength_modifier","dexterity_modifier","constitution_modifier","intelligence_modifier","wisdom_modifier","charisma_modifier","armor_class","armor_class_notes","saving_throws_fortitude","saving_throws_reflex","saving_throws_will","saving_throws_notes","hit_points_max","hit_points_notes","immunities","weaknesses","resistances","speed","speed_notes","spell_attack","spell_dc","focus_points_max"]
+        };
+        // Misc
+        const global_magic_traditions = ["arcane","divine","primal","occult"];
+        const global_spell_frequencies = ["constant","at-will","daily-limit"];
         // Repeating sections and their attributes
         var global_repsecs = {
             "lore": {"section": "lore","attrs":global_attributes_by_category["skills_fields"].map(fld => `lore_${fld}`)}
@@ -7115,21 +7197,24 @@
         };
 
         // === VERSIONING ===
-        const versioning = function() {
+        const versioning = function(callback) {
             getAttrs(["version","version_character","sheet_type","character_name"], (values) => {
                 let version_sheet = parseFloat(values["version"]) || 0.0;
                 let version_character = parseFloat(values["version_character"]) || 0.0;
                 if (version_character === version_sheet) {
                     console.log(`%c Pathfinder Second Edition by Roll20: ${(values["character_name"] || "Unnamed character")}, version ${version_character}`, "color:purple;font-size:14px;");
+                    if(callback) {
+                        callback();
+                    }
                 } else if (version_character < 2.01) {
                     versioningUpdateTo2_01(values, () => {
                         setAttrs({"version_character": 2.01}, {silent: true}, () => {
-                            versioning();
+                            versioning(callback);
                         });
                     });
                 } else {
                     setAttrs({"version_character": version_sheet}, {silent: true}, () => {
-                        versioning();
+                        versioning(callback);
                     });
                 }
             });
@@ -7170,7 +7255,7 @@
         };
 
         // === SKILLS
-        const updateSkill = function(id,attr,callback) {
+        const updateSkill = function(id, attr, callback) {
             console.log(`%c Update skill ${attr}`, "color:purple;font-size:14px;");
             let fields = ["sheet_type","level"];
             fields.push(...global_attributes_by_category["ability_modifiers"],...global_attributes_by_category["skills_fields"].map(field => `${id}_${field}`));
@@ -7347,7 +7432,7 @@
                 // Attack display
                 update[`${id}_weapon_display`] = `${weapon_strike < 0 ? "" : "+"}${weapon_strike}${(values[`${id}_weapon_traits`] || "").length ? " ("+values[`${id}_weapon_traits`]+")" : ""}`;
                 // Damage display
-                update[`${id}_damage_display`] = `${damage_dice == '0D0' ? "" : damage_dice}${damage_bonus < 0 ? "" : "+"}${damage_bonus}${values[`${id}_damage_b`] == "1" ? " "+getTranslationByKey("b").toUpperCase() : ""}${values[`${id}_damage_p`] == "1" ? " "+getTranslationByKey("p").toUpperCase() : ""}${values[`${id}_damage_s`] == "1" ? " "+getTranslationByKey("s").toUpperCase() : ""}${(values[`${id}_damage_effects`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_effects`] : ""}`;
+                update[`${id}_damage_display`] = `${damage_dice == '0D0' ? "" : damage_dice}${damage_bonus < 0 ? "" : "+"}${damage_bonus}${values[`${id}_damage_b`] == "1" ? " "+getTranslationByKey("b").toUpperCase() : ""}${values[`${id}_damage_p`] == "1" ? " "+getTranslationByKey("p").toUpperCase() : ""}${values[`${id}_damage_s`] == "1" ? " "+getTranslationByKey("s").toUpperCase() : ""}${(values[`${id}_damage_effects`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_effects`] : ""}${(values[`${id}_damage_additional`] || "").length ?  " "+getTranslationByKey("plus")+" "+values[`${id}_damage_additional`] : ""}`;
                 // Damage Roll: calculating info to include translated damage type
                 let damage_info = "";
                 if(values[`${id}_damage_b`] == "1") {
@@ -7611,6 +7696,435 @@
             return update;
         };
 
+        // === NPC Compendium drops
+        const updateNpcDrop = function(rawdata) {
+            // Checking dropped data from comendium for NPC building
+            let cdata;
+            try{
+                cdata = JSON.parse(rawdata) || {};
+            }
+            catch(error){
+                cdata = {};
+                console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: no valid data`, "color:red;font-size:14px;");
+            }
+            if(_.isEmpty(cdata)) {
+                console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: empty data`, "color:red;font-size:14px;");
+            } else {
+                console.log(`%c PF2E Debug: NPC data: ${JSON.stringify(cdata,null,"  ")}`, "color:purple;font-size:12px;");
+                if(cdata["Category"] && (cdata["Category"].trim().toLowerCase() === "monsters")) {
+                    // Initialize NPC & show building splash
+                    setAttrs({"sheet_type": "npc","build_message": (getTranslationByKey("building_npc") || "BUIDLING")},{silent: true}, ()=>{
+                        getAttrs(["npcdrop_name","npcdrop_uniq","toggles"], (values) => {
+                            setAttrs(calcNpcDrop(cdata,values),{silent: true}, () => {
+                                updateDefaultToken();
+                            });
+                        });
+                    });
+                }
+            }
+        };
+        const calcNpcDrop = function (cdata,values) {
+            // Budiling / Updating an NPC character with dropped data from the compendium
+            let update = {}, row = "", obj_array = [];
+            let rollregex = /(\d+d*\d*\+*\-*\d*)/gi; // Improvable Regex formula to parse damage dice rolls (like 1d6+2 or 2d4 or just ... 3)
+            // Base NPC information
+            if(values["npcdrop_name"]) {
+                update["character_name"] = values["npcdrop_name"];
+            }
+            if(values["npcdrop_uniq"]) {
+                update["npc_fromcompendium"] = values["npcdrop_uniq"];
+            } else {
+                update["npc_fromcompendium"] = "Monsters:" + values["npcdrop_name"];
+            }
+            // === Basic non repeating informations
+            global_npc_attributes.basics.forEach((attr) => {
+                if(cdata[attr]) {
+                    update[`${attr}`] = cdata[attr];
+                }
+            });
+            // === Repeating data
+            // -- Lore skills
+            if(cdata["data-lore"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-lore"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid lore`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_lore_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}lore_name`] = (obj["lore_name"] || getTranslationByKey("lore").toUpperCase());
+                        update[`${row}lore`] = (obj["lore"] || "0");
+                        update[`${row}lore_notes`] = (obj["lore_notes"] || "");
+                    });
+                }
+            }
+            // -- Items
+            if(cdata["data-items"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-items"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid items`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_items-worn_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}worn_item`] = (obj["item"] || getTranslationByKey("item").toUpperCase());
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Interaction abilities
+            if(cdata["data-interaction-abilities"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-interaction-abilities"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid interaction abilities`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_interaction-abilities_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Free actions reactions (automatic and reactive abilities)
+            if(cdata["data-free-actions-reactions"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-free-actions-reactions"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid actions reactions`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_free-actions-reactions_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        if((obj["free_action"] || "")) {
+                            update[`${row}free_action`] = "free action";
+                        }
+                        if((obj["reaction"] || "")) {
+                            update[`${row}reaction`] = "reaction";
+                        }
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}source`] = (obj["source"] || "");
+                        update[`${row}trigger`] = (obj["trigger"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Melee strikes
+            if(cdata["data-melee-strikes"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-melee-strikes"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid melee strikes`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_melee-strikes_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}weapon`] = (obj["weapon"] || getTranslationByKey("weapon").toUpperCase());
+                        update[`${row}weapon_strike`] = (obj["weapon_strike"] || "+0");
+                        update[`${row}weapon_traits`] = (obj["weapon_traits"] || "");
+                        update[`${row}weapon_strike_damage`] = (obj["weapon_strike_damage"] || "+0");
+                        update[`${row}weapon_strike_damage_type`] = (obj["weapon_strike_damage_type"] || "");
+                        update[`${row}weapon_strike_damage_additional`] = (obj["weapon_strike_damage_additional"] || "").replace(rollregex,'[[$1]]');
+                        update[`${row}weapon_notes`] = (obj["weapon_notes"] || "");
+                    });
+                }
+            }
+            // -- Ranged strikes
+            if(cdata["data-ranged-strikes"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-ranged-strikes"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid ranged strikes`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_ranged-strikes_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}weapon`] = (obj["weapon"] || getTranslationByKey("weapon").toUpperCase());
+                        update[`${row}weapon_strike`] = (obj["weapon_strike"] || "+0");
+                        update[`${row}weapon_traits`] = (obj["weapon_traits"] || "");
+                        update[`${row}weapon_strike_damage`] = (obj["weapon_strike_damage"] || "+0");
+                        update[`${row}weapon_strike_damage_type`] = (obj["weapon_strike_damage_type"] || "");
+                        update[`${row}weapon_strike_damage_additional`] = (obj["weapon_strike_damage_additional"] || "").replace(rollregex,'[[$1]]');
+                        update[`${row}weapon_range`] = (obj["weapon_range"] || "");
+                        update[`${row}weapon_notes`] = (obj["weapon_notes"] || "");
+                    });
+                }
+            }
+            // -- Actions activities (Offensive or Proactive abilities)
+            if(cdata["data-actions-activities"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-actions-activities"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid actions activities (offensive or proactive abilities)`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    obj_array.forEach((obj) => {
+                        row = `repeating_actions-activities_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("ability").toUpperCase());
+                        update[`${row}actions`] = (obj["actions"] || "");
+                        update[`${row}traits`] = (obj["traits"] || "");
+                        update[`${row}source`] = (obj["source"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // === Spell/spellcaster handling
+            let is_spellcaster = false;
+            let spells_array = [0,0,0,0,0,0,0,0,0,0]; // number of spells per level (1 to 10)
+            // -- Innate Spells
+            if(cdata["data-spellinnate"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spellinnate"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid innate spells`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    obj_array.forEach((obj) => {
+                        row = `repeating_spellinnate_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        update[`${row}domain`] = (obj["domain"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Focus spells
+            if((cdata["casts_focus"] || "false").toLowerCase() == "true") {
+                is_spellcaster = true;
+                update["casts_focus"] = "1";
+            }
+            if(cdata["data-spellfocus"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spellfocus"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid focus spells`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    update["casts_focus"] = "1";
+                    obj_array.forEach((obj) => {
+                        row = `repeating_spellfocus_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        update[`${row}domain`] = (obj["domain"] || "");
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Cantrips
+            if((cdata["casts_cantrips"] || "false").toLowerCase() == "true") {
+                is_spellcaster = true;
+                update["casts_cantrips"] = "1";
+            }
+            if(cdata["data-cantrip"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-cantrip"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid cantrips`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    update["casts_cantrips"] = "1";
+                    update["cantrips_per_day"] = obj_array.length;
+                    obj_array.forEach((obj) => {
+                        row = `repeating_cantrip_${generateRowID()}_`;
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = (obj["spelllevel"] || "0");
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        if(obj["type"] && global_magic_traditions.includes(obj["type"].trim().toLowerCase())) {
+                            update[`${row}type`] = obj["type"];
+                        }
+                        if(obj["frequency"] && global_spell_frequencies.includes(obj["frequency"].trim().toLowerCase())) {
+                            update[`${row}frequency`] = obj["frequency"];
+                        }
+                        update[`${row}uses_max`] = (obj["uses_max"] || "0");
+                        update[`${row}uses`] = update[`${row}uses_max`];
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // --- Prepared and Spontaneous Spells, level 1 to 10
+            if(cdata["spellcaster_prepared"] && cdata["spellcaster_prepared"].trim().toLowerCase() !== "false") {
+                is_spellcaster = true;
+                update["spellcaster_prepared"] = "prepared";
+            }
+            if(cdata["spellcaster_spontaneous"] && cdata["spellcaster_spontaneous"].trim().toLowerCase() !== "false") {
+                is_spellcaster = true;
+                update["spellcaster_spontaneous"] = "spontaneous";
+            }
+            if(cdata["data-spell"]) {
+                try{
+                    obj_array = JSON.parse(cdata["data-spell"]);
+                }
+                catch(error) {
+                    obj_array = [];
+                    console.log(`%c Pathfinder Second Edition by Roll20: npcdrop_data: invalid spell`, "color:red;font-size:14px;");
+                }
+                if(obj_array.length) {
+                    is_spellcaster = true;
+                    let spellvl = 1;
+                    obj_array.forEach((obj) => {
+                        spellvl = parseInt((obj["spelllevel"] || "1"));
+                        spells_array[spellvl-1]++;
+                        row = `repeating_spell${spellvl}_${generateRowID()}_`;
+                        // attributes
+                        update[`${row}toggles`] = "display,";
+                        update[`${row}name`] = (obj["name"] || getTranslationByKey("spell").toUpperCase());
+                        update[`${row}spelllevel`] = spellvl;
+                        update[`${row}spelldc`] = (obj["spelldc"] || "0");
+                        if(obj["type"] && global_magic_traditions.includes(obj["type"].trim().toLowerCase())) {
+                            update[`${row}type`] = obj["type"];
+                        }
+                        if(obj["frequency"] && global_spell_frequencies.includes(obj["frequency"].trim().toLowerCase())) {
+                            update[`${row}frequency`] = obj["frequency"];
+                        }
+                        update[`${row}uses_max`] = (obj["uses_max"] || "0");
+                        update[`${row}uses`] = update[`${row}uses_max`];
+                        update[`${row}description`] = (obj["description"] || "");
+                    });
+                }
+            }
+            // -- Spells per level (1 to 10)
+            if(is_spellcaster) {
+                // Activating (or not) spell sections, and spells per day
+                for (let i = 0; i < 10; i++) {
+                    if(cdata[`level_${i+1}_per_day_max`] && (parseInt(cdata[`level_${i+1}_per_day_max`]) || 0) > 0) {
+                        update[`casts_level_${i+1}`] = "1";
+                        update[`level_${i+1}_per_day`] = parseInt(cdata[`level_${i+1}_per_day_max`]);
+                        update[`level_${i+1}_per_day_max`] = parseInt(cdata[`level_${i+1}_per_day_max`]);
+                    } else {
+                        update[`casts_level_${i+1}`] = (parseInt(spells_array[i]) || 0) > 0 ? "1" : "0";
+                        update[`level_${i+1}_per_day`] = spells_array[i];
+                        update[`level_${i+1}_per_day_max`] = spells_array[i];
+                    }
+                }
+            }
+            // -- Rituals: TBC when sheet updated with rituals
+            // === Final calculations
+            if(is_spellcaster) { // make sure the spell/magic sections is visible
+                update["toggles"] = (values["toggles"] || "") + "npcspellcaster,";
+            }
+            update["hit_points"] = (update["hit_points_max"] || 0);
+            update["focus_points"] = (update["focus_points_max"] || 0);
+            // -- Hide building splash
+            update["build_message"] = "";
+            // -- End / return
+            return update;
+        };
+        const updateDefaultToken = function() {
+            // === Token default attributes handling
+            // TODO: sheet.json settings update for bars
+            getAttrs(["size","settings_bar1_value","settings_bar1_max","settings_bar1_link","settings_bar2_value","settings_bar2_max","settings_bar2_link","settings_bar3_value","settings_bar3_max","settings_bar3_link"], (settings) => {
+                let default_attr = {};
+                // SIZE
+                default_attr["width"] = 70;
+                default_attr["height"] = 70;
+                if(settings["size"]) {
+                    let squares = 1.0;
+                    let squarelength = 70;
+                    let obj_size = global_sizes.find((size_item) => size_item.size === settings["size"].toLowerCase());
+                    if(! _.isEmpty(obj_size)) {
+                        squares = Math.max((parseFloat(obj_size.squares) || 1.0), 1.0);
+                    }
+                    let squaresize = parseInt(squarelength * squares);
+                    default_attr["width"] = squaresize;
+                    default_attr["height"] = squaresize;
+                }
+                // === BARS
+                let getList = {};
+                for(x = 1; x <= 3; x++) {
+                    _.each(["value", "max"], (word) => {
+                        let keyname = "settings_bar" + x + "_" + word;
+                        if(settings[keyname]) {
+                            getList[keyname] = settings[keyname];
+                        }
+                    });
+                }
+                getAttrs(["hit_points","hit_points_max","armor_class"].push(_.values(getList)), (values) =>  {
+                    _.each(_.keys(getList), (keyname) => {
+                        settings[keyname] = values[getList[keyname]] == undefined ? "" : values[getList[keyname]];
+                    });
+                    // Bar 1
+                    if(settings["settings_bar1_link"]) {
+                        default_attr["bar1_link"] = settings["settings_bar1_link"];
+                    } else if(settings["settings_bar1_value"] || settings["settings_bar1_max"]) {
+                        if(settings["settings_bar1_value"]) {
+                            default_attr["bar1_value"] = settings["settings_bar1_value"];
+                        }
+                        if(settings["settings_bar1_max"]) {
+                            default_attr["bar1_max"] = settings["settings_bar1_max"];
+                        }
+                    } else {
+                        default_attr["bar1_value"] = values["hit_points"];
+                        default_attr["bar1_max"] = values["hit_points_max"];
+                    }
+                    // Bar 2
+                    if(settings["settings_bar2_link"]) {
+                        default_attr["bar2_link"] = settings["settings_bar2_link"];
+                    } else if(settings["settings_bar2_value"] || settings["settings_bar2_max"]) {
+                        if(settings["settings_bar2_value"]) {
+                            default_attr["bar2_value"] = settings["settings_bar2_value"];
+                        }
+                        if(settings["settings_bar2_max"]) {
+                            default_attr["bar2_max"] = settings["settings_bar2_max"];
+                        }
+                    } else {
+                        default_attr["bar2_link"] = "armor_class";
+                    }
+                    // Bar 3
+                    if(settings["settings_bar3_link"]) {
+                        default_attr["bar3_link"] = settings["settings_bar3_link"];
+                    } else if(settings["settings_bar3_value"] || settings["settings_bar3_max"]) {
+                        if(settings["settings_bar3_value"]) {
+                            default_attr["bar3_value"] = settings["settings_bar3_value"];
+                        }
+                        if(settings["settings_bar3_max"]) {
+                            default_attr["bar3_max"] = settings["settings_bar3_max"];
+                        }
+                    }
+                    setDefaultToken(default_attr);
+                });
+            });
+        };
+
         // === Module Interface
         return {
             sheetOpen: sheetOpen
@@ -7629,6 +8143,7 @@
             , updateMagicTradition: updateMagicTradition
             , updateSpell: updateSpell
             , updateBulk: updateBulk
+            , updateNpcDrop: updateNpcDrop
         }
 
     })();
@@ -7876,6 +8391,14 @@
     on("change:cp change:sp change:gp change:pp", (eventinfo) => {
             // console.table(eventinfo);
             modPf2.updateBulk(eventinfo.sourceAttribute);
+    });
+
+    // === NPC Compendium drops
+    on("change:npcdrop_data", (e) => {
+        // console.log("*** DEBUG change:npcdrop_data: " + JSON.stringify(e,null,"  "));
+        if(e && e.newValue && ((!e.triggerType) || (e.triggerType && e.triggerType == "compendium"))) {
+            modPf2.updateNpcDrop(e.newValue);
+        }
     });
 
     /* === EVENTS HANDLING ENDS === */

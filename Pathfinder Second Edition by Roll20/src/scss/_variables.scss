@@ -1,0 +1,45 @@
+/** Colors Schemes **/
+    //BLUES
+    $darkblue : hsl(217, 100%, 25%);
+    $focusblue: hsl(217, 100%, 20%);
+    $darkestblue: hsl(217, 100%, 15%); //used 4 times - combine with focusblue
+    $lighterblue:  hsl(217, 100%, 35%);
+    $darkerdarkestblue: hsla(217, 100%, 15%, 0.1); //used once
+    $traitblue: hsl(239, 25%, 48%);
+ 
+    //REDS & TANS
+    $reddish: hsl(1, 70%, 21%);
+    $lighterred: hsl(6, 63%, 24%);
+    $prettyred: hsl(1, 60%, 41%); //used once
+    $brightred: hsl(1, 100%, 50%);
+    $perfectred: hsl(0, 100%, 35%); //used once, in npc sheet
+    $brownred: hsl(11.9, 50%, 32.8%);
+    $pinktan: hsl(354, 25%, 61%);
+    $browntan: hsl(12, 42%, 42%);
+    $peach: hsl(0, 100%, 90%); //used once, in npc sheet
+
+    //YELLOW
+    $traityellow: hsl(41, 29%, 58%);
+
+    //GREEN
+    $traitgreen: hsl(159, 70%, 28%);
+
+    //BLACKS
+    $black: hsl(0, 0%, 0%);
+    $almostblack: hsla(0, 0%, 0%, 0.1);
+    $darkgray: hsla(0, 0%, 0%, 0.3); //used twice - combine with one above
+    $shadow  : hsla(0,0%,0%,0.2);
+    $boxshadow: hsla(0,0%,0%,0.25); //can we combine this with the one above? used 1 in place 
+//Yes we can
+    //GRAYS
+    $darkgray: hsla(41, 29%, 90%, 0.3); //used once
+    $gray: hsl(0, 0%, 50%); //Used twice
+    $graylike: hsla(0,0%,100%,0.5); //Used once
+    $graytan: hsla(0,0%,100%,0.1); //used once
+    //WHITES
+    $white  : hsl(0, 0%, 100%);
+    $lighttan: hsl(35, 81%, 96%);
+    $whitelike: hsl(0, 100%, 100%); //can we replace this? 1 use
+    $whitetan: hsl(0, 0%, 87%);
+    $whitishtan: hsla(45, 15%, 90%, 1);
+    $whitish: hsl(0, 0%, 95%); //used twice
