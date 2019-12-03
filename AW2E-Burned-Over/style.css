@@ -598,6 +598,7 @@ div.sheet-flex:first-child {
     max-width: 100%;
     min-width: 410px;
     vertical-align: top;
+    flex-shrink: 0;
 }
 
 .sheet-flex-container {
@@ -612,7 +613,14 @@ div.sheet-flex:first-child {
     flex: 0 0 auto;
     display: inline-flex;
     flex-wrap: wrap;
-    width: 50%;
+    width: 45%;
+}
+
+.charsheet .sheet-misc-container {
+    flex: 0 0 auto;
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 45%;
 }
 
 .charsheet .sheet-stats {

@@ -79,7 +79,7 @@
     </div>
     <div class="sheet-flex">
         <div class="sheet-flex-container">
-            <span data-i18n="stats-effects">Stats and Effects</span>
+            <!-- <span data-i18n="stats-effects">Stats and Effects</span> -->
             <div class="sheet-stats-container">
                 <div class="sheet-stats">
                     <div class="sheet-statbox">
@@ -227,259 +227,271 @@
                     </div>
                 </div>
             </div>
+            <div class="sheet-misc-container">
+                <label class="sheet-harm sheet-section-title"><span data-i18n="harm">Harm</span>:</label>
+                <div class="sheet-roll-box sheet-cf">
+                    <label class="sheet-buttonLbl"><span data-i18n="suffer-harm">suffer harm</span>:</label>
+                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{harm}}} {{result=[[2d6 + ?{Harm |0|1|2|3|4|5}]]}}' name='roll_harm'></button>
+                </div>
+
+                <div class="sheet-harm-section">
+                    <input type="radio" value="0" name="attr_harm" class="sheet-harm-checkbox sheet-harm-0" checked />0
+                    <input type="radio" value="3" name="attr_harm" class="sheet-harm-checkbox sheet-harm-3" />3
+                    <input type="radio" value="6" name="attr_harm" class="sheet-harm-checkbox sheet-harm-6" />6
+                    <input type="radio" value="9" name="attr_harm" class="sheet-harm-checkbox sheet-harm-9" />9
+                    <input type="radio" value="10" name="attr_harm" class="sheet-harm-checkbox sheet-harm-10" />10
+                    <input type="radio" value="11" name="attr_harm" class="sheet-harm-checkbox sheet-harm-11" />11
+                    <input type="radio" value="12" name="attr_harm" class="sheet-harm-checkbox sheet-harm-12" />12
+                    <br/>
+                    <div class="sheet-harm-clock"></div>
+                </div>
+                <h4><span data-i18n="life-untenable">When Life is Untenable</span>:</h4>
+                <ul>
+                    <li><input type="checkbox" name="attr_-1hard" value="1"  /><label><span data-i18n="back-minus-harm">Come back with -1hard</span></label></li>
+                    <li><input type="checkbox" name="attr_newplaybook" value="1"  /><label><span data-i18n="change-playbook">Change to a new Playbook</span></label></li>
+                    <li><input type="checkbox" name="attr_1weird" value="1"  /><label><span data-i18n="back-minus-weird">Come back with +1weird</span></label></li>
+                    <li><input type="checkbox" name="attr_dead" value="1"  /><label><span data-i18n="die">Die</span></label></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="sheet-flex">
+        <div class="sheet-flex-container">
+            <div class="sheet-misc-container">
+                <div class="sheet-box">
+                <label class="sheet-improvements sheet-section-title"><span data-i18n="improvements">Improvements</span>:</label>
+                    <div class="sheet-tracker">
+                        <label class="sheet-improvement"><span data-i18n="experience">Experience</span></label>
+                        <input type="checkbox" name="attr_sheet-improvement-1" />
+                        <input type="checkbox" name="attr_sheet-improvement-2" />
+                        <input type="checkbox" name="attr_sheet-improvement-3" />
+                        >> <span data-i18n="improve">Improve</span>
+                    </div>
+                    <input type='checkbox' name='attr_sheet-show_improvements' class='sheet-showhide'/>
+                    <label class="sheet-showhide"><small><span data-i18n="show-hide-improvements">Show/Hide Improvements</span></small></label><br/>
+                    <small><span data-i18n="phase1-add-improvements">Add all these improvements manually into your stats, they will not be auto-calculated</span></small>
+                    <div class="sheet-subbox">
+                        <!-- Class Selected -->
+                        <input type="checkbox" name="attr_class" class="sheet-isBrain-Picker" value='Brain-Picker' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isGearcutter" value='Gearcutter' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isLawmaker" value='Lawmaker' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isMedic" value='Medic' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isMonarch" value='Monarch' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isOperator" value='Operator' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isUndaunted" value='Undaunted' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isVigilant" value='Vigilant' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isVolatile" value='Volatile' style="display: none;" />
+                        <input type="checkbox" name="attr_class" class="sheet-isWeaponized" value='Weaponized' style="display: none;" />
+                        <!-- End Class Selected -->
+                        <div class="sheet-brain-picker">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-6" /> <span data-i18n="get-plus-aggro-max2">get +1Aggro (max Aggro+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-7" /> <span data-i18n="get-plus-cool-max2">get +1Cool (max Cool+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-8" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-9" /> <span data-i18n="get-move-brain-picker">Get a new Brain-picker move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-10" /> <span data-i18n="get-move-brain-picker">Get a new Brain-picker move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-11" /> <span data-i18n="get-brain-picker-gear-2">Get 2 new Brain-picker gear.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-12" /> <span data-i18n="establish-venue-wealth">Establish a <strong>venue</strong> and get <strong>wealth</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-13" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-gearcutter">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-6" /> <span data-i18n="get-plus-weird-max3">Get +1Weird (max Weird+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool(max Cool+2)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-9" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-11" /> <span data-i18n="get-move-gearcutter">Get a new Gearcutter move</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-12" /> <span data-i18n="get-move-gearcutter">Get a new Gearcutter move</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-13" /> <span data-i18n="add-medlab">Add a medlab to yoru workshop (workspace: healing).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-10" /> <span data-i18n="add-weird-tech">Add weird tech to your workshop (workspace: Ψ).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-lawmaker">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-7" /> <span data-i18n="get-plus-hard-max2">Get +1Hard (max Hard+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-10" /> <span data-i18n="get-move-lawmaker">Get a new Lawmaker move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-11" /> <span data-i18n="add-option-surplus">Add an option and a <strong>surplus</strong> to your holding.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-12" /> <span data-i18n="add-option-surplus">Add an option and a <strong>surplus</strong> to your holding.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-13" /> <span data-i18n="add-option-erase-want">Add an option to your holding and erase a <strong>want</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-medic" style="padding-left: 20px;">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-6" /> <span data-i18n="get-plus-sharp-max3">Get +1Sharp (max Sharp+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-9" /> <span data-i18n="get-move-medic">Get a new Medic move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-10" /> <span data-i18n="get-move-medic">Get a new Medic move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-11" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-12" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-13" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-monarch">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-10" /> <span data-i18n="get-move-monarch">Get a new Monarch move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-11" /> <span data-i18n="get-move-monarch">Get a new Monarch move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-12" /> <span data-i18n="add-option-people">Add 1 option to your people.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-13" /> <span data-i18n="add-option-people">Add 1 option to your people.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-operator">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-10" /> <span data-i18n="get-move-operator">Get a new Operator move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-11" /> <span data-i18n="get-move-operator">Get a new Operator move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-12" /> <span data-i18n="get-vehicle-new">Get a new vehicle (you detail).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-13" /> <span data-i18n="get-garage-tinkering">Get a <strong>garage</strong> (workspace: vehicles) and <strong>tinkering</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-undaunted">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-7" /> <span data-i18n="get-plus-cool-max3">get +1Cool (max Cool+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-8" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-9" /> <span data-i18n="get-move-undaunted">Get a new Undaunted move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-10" /> <span data-i18n="get-move-undaunted">Get a new Undaunted move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-11" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-12" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-13" /> <span data-i18n="establish-holding-wealth">Establish a <strong>holding</strong> and get <strong>wealth</strong></span>.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-vigilant">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-7" /> <span data-i18n="get-plus-sharp-max3">Get +1Sharp (max Sharp+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-9" /> <span data-i18n="get-plus-hard-max2">Get +1Hard (max Hard+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-10" /> <span data-i18n="get-move-vigilant">Get a new Vigilant move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-11" /> <span data-i18n="get-move-vigilant">Get a new Vigilant move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-12" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-13" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-volatile">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-7" /> <span data-i18n="get-plus-hard-max3">get +1Hard (max Hard+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-9" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-10" /> <span data-i18n="get-move-volatile">Get a new Volatile move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-11" /> <span data-i18n="get-move-volatile">Get a new Volatile move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-12" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-13" /> <span data-i18n="establish-holding-wealth">Establish a <strong>holding</strong> and get <strong>wealth</strong></span>.</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
+                            </ul>
+                        </div>
+                        <div class="sheet-weaponized">
+                            <ul>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-7" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-8" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-9" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-10" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-11" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-12" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-13" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
+                                <li><hr></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
+                                <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="sheet-3colrow">
         <div class="sheet-col odd"> <!-- COL1 SATS AND IMPROVEMENTS -->
-            <div class="sheet-box">
-                <label class="sheet-improvements sheet-section-title"><span data-i18n="improvements">Improvements</span>:</label>
-                <div class="sheet-tracker">
-                    <label class="sheet-improvement"><span data-i18n="experience">Experience</span></label>
-                    <input type="checkbox" name="attr_sheet-improvement-1" />
-                    <input type="checkbox" name="attr_sheet-improvement-2" />
-                    <input type="checkbox" name="attr_sheet-improvement-3" />
-                    >> <span data-i18n="improve">Improve</span>
-                </div>
-                <input type='checkbox' name='attr_sheet-show_improvements' class='sheet-showhide'/>
-                <label class="sheet-showhide"><small><span data-i18n="show-hide-improvements">Show/Hide Improvements</span></small></label><br/>
-                <small><span data-i18n="phase1-add-improvements">Add all these improvements manually into your stats, they will not be auto-calculated</span></small>
-                <div class="sheet-subbox">
-                    <!-- Class Selected -->
-                    <input type="checkbox" name="attr_class" class="sheet-isBrain-Picker" value='Brain-Picker' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isGearcutter" value='Gearcutter' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isLawmaker" value='Lawmaker' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isMedic" value='Medic' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isMonarch" value='Monarch' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isOperator" value='Operator' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isUndaunted" value='Undaunted' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isVigilant" value='Vigilant' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isVolatile" value='Volatile' style="display: none;" />
-                    <input type="checkbox" name="attr_class" class="sheet-isWeaponized" value='Weaponized' style="display: none;" />
-                    <!-- End Class Selected -->
-                    <div class="sheet-brain-picker">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-6" /> <span data-i18n="get-plus-aggro-max2">get +1Aggro (max Aggro+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-7" /> <span data-i18n="get-plus-cool-max2">get +1Cool (max Cool+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-8" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-9" /> <span data-i18n="get-move-brain-picker">Get a new Brain-picker move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-10" /> <span data-i18n="get-move-brain-picker">Get a new Brain-picker move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-11" /> <span data-i18n="get-brain-picker-gear-2">Get 2 new Brain-picker gear.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-12" /> <span data-i18n="establish-venue-wealth">Establish a <strong>venue</strong> and get <strong>wealth</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-13" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_brain-picker-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-gearcutter">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-6" /> <span data-i18n="get-plus-weird-max3">Get +1Weird (max Weird+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool(max Cool+2)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-9" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-11" /> <span data-i18n="get-move-gearcutter">Get a new Gearcutter move</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-12" /> <span data-i18n="get-move-gearcutter">Get a new Gearcutter move</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-13" /> <span data-i18n="add-medlab">Add a medlab to yoru workshop (workspace: healing).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-10" /> <span data-i18n="add-weird-tech">Add weird tech to your workshop (workspace: Ψ).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_gearcutter-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-lawmaker">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-7" /> <span data-i18n="get-plus-hard-max2">Get +1Hard (max Hard+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-10" /> <span data-i18n="get-move-lawmaker">Get a new Lawmaker move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-11" /> <span data-i18n="add-option-surplus">Add an option and a <strong>surplus</strong> to your holding.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-12" /> <span data-i18n="add-option-surplus">Add an option and a <strong>surplus</strong> to your holding.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-13" /> <span data-i18n="add-option-erase-want">Add an option to your holding and erase a <strong>want</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-medic" style="padding-left: 20px;">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-6" /> <span data-i18n="get-plus-sharp-max3">Get +1Sharp (max Sharp+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-9" /> <span data-i18n="get-move-medic">Get a new Medic move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-10" /> <span data-i18n="get-move-medic">Get a new Medic move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-11" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-12" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-13" /> <span data-i18n="add-option-refuge">Add an option to your refuge</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_medic-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-monarch">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-10" /> <span data-i18n="get-move-monarch">Get a new Monarch move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-11" /> <span data-i18n="get-move-monarch">Get a new Monarch move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-12" /> <span data-i18n="add-option-people">Add 1 option to your people.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-13" /> <span data-i18n="add-option-people">Add 1 option to your people.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_monarch-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-operator">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-6" /> <span data-i18n="get-plus-cool-max3">Get +1Cool (max Cool+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-7" /> <span data-i18n="get-plus-aggro-max2">Get +1Aggro (max Aggro+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-8" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-9" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-10" /> <span data-i18n="get-move-operator">Get a new Operator move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-11" /> <span data-i18n="get-move-operator">Get a new Operator move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-12" /> <span data-i18n="get-vehicle-new">Get a new vehicle (you detail).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-13" /> <span data-i18n="get-garage-tinkering">Get a <strong>garage</strong> (workspace: vehicles) and <strong>tinkering</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_operator-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-undaunted">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-7" /> <span data-i18n="get-plus-cool-max3">get +1Cool (max Cool+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-8" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-9" /> <span data-i18n="get-move-undaunted">Get a new Undaunted move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-10" /> <span data-i18n="get-move-undaunted">Get a new Undaunted move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-11" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-12" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-13" /> <span data-i18n="establish-holding-wealth">Establish a <strong>holding</strong> and get <strong>wealth</strong></span>.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_undaunted-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-vigilant">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-7" /> <span data-i18n="get-plus-sharp-max3">Get +1Sharp (max Sharp+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-9" /> <span data-i18n="get-plus-hard-max2">Get +1Hard (max Hard+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-10" /> <span data-i18n="get-move-vigilant">Get a new Vigilant move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-11" /> <span data-i18n="get-move-vigilant">Get a new Vigilant move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-12" /> <span data-i18n="establish-following-devotion">Establish a <strong>following</strong> and get <strong>devotion</strong>.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-13" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_vigilant-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-volatile">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-7" /> <span data-i18n="get-plus-hard-max3">get +1Hard (max Hard+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-8" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-9" /> <span data-i18n="get-plus-sharp-max2">get +1Sharp (max Sharp+2)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-10" /> <span data-i18n="get-move-volatile">Get a new Volatile move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-11" /> <span data-i18n="get-move-volatile">Get a new Volatile move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-12" /> <span data-i18n="establish-gang-leadership">Establish a <strong>gang</strong> and get <strong>leadership</strong></span>.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-13" /> <span data-i18n="establish-holding-wealth">Establish a <strong>holding</strong> and get <strong>wealth</strong></span>.</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook</label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-19" /> <span data-i18n="second-char">Create an additional character to play</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_volatile-improvement-20" /> <span data-i18n="unlock-gamechanger">Retire your character to safety</span></label></li>
-                        </ul>
-                    </div>
-                    <div class="sheet-weaponized">
-                        <ul>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-6" /> <span data-i18n="get-plus-aggro-max3">get +1Aggro (max Aggro+3)</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-7" /> <span data-i18n="get-plus-cool-max2">Get +1Cool (max Cool+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-8" /> <span data-i18n="get-plus-weird-max2">Get +1Weird (max Weird+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-9" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-10" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-11" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-12" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-13" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
-                            <li><hr></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-16" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-17" /> <span data-i18n="get-plus-stat-max3">Get +1 to any stat (max stat+3).</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-18" /> <span data-i18n="unlock-gamechanger">Unlock a gamechanger.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-19" /> <span data-i18n="second-char">Create an additional character to play.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-20" /> <span data-i18n="retire-char-safety">Retire your character to safety.</span></label></li>
-                    </div>
-                </div>
-            </div>
+            
         </div> <!-- END COL 1 -->
         <div class="sheet-col even"> <!-- COL 2 -->
-            <label class="sheet-class-moves sheet-section-title"><span data-i18n="effects">Effects</span>:</label>
-            <div class="sheet-attr-box">
-                <label class="sheet-weapon sheet-name"><span data-i18n="weapon">Weapon</span>:</label>
-                <input type="number" name="attr_weapon" value="0" />
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-armor sheet-name"><span data-i18n="armor">Armor</span>:</label>
-                <input type="number" name="attr_armor" value="0" />
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-Ψ sheet-name"><span data-i18n="Ψ">Ψ</span>:</label>
-                <input type="number" name="attr_Ψ" value="0" />
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-hard sheet-name"><span data-i18n="barter">Barter</span>:</label>
-                <input type="number" name="attr_barter" min="0" value="0" /> <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{barter}}} {{roll_mod=@{barter}}} {{result=[[2d6 + @{barter} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_barter' ></button>
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-environ sheet-name"><span data-i18n="environ">Environ</span>:</label>
-                <input type="number" name="attr_environ" value="0" />
-            </div>
             <label class="sheet-other sheet-section-title"><span data-i18n="hold">Hold</span>:</label>
                 <textarea rows="4" cols="50" name="attr_hold"></textarea>
             <label class="sheet-class-moves sheet-section-title"><span data-i18n="playbook-moves">Playbook Moves</span>:</label>
@@ -517,28 +529,7 @@
         </div> <!-- END COL 2 -->
         <div class="sheet-col"> <!-- COL 3 -->
             <div class="sheet-box">
-                <label class="sheet-harm sheet-section-title"><span data-i18n="harm">Harm</span>:</label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="suffer-harm">suffer harm</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{harm}}} {{result=[[2d6 + ?{Harm |0|1|2|3|4|5}]]}}' name='roll_harm'></button>
-                </div>
 
-                <div class="sheet-harm-section">
-                    <input type="radio" value="0" name="attr_harm" class="sheet-harm-checkbox sheet-harm-0" checked />0
-                    <input type="radio" value="3" name="attr_harm" class="sheet-harm-checkbox sheet-harm-3" />3
-                    <input type="radio" value="6" name="attr_harm" class="sheet-harm-checkbox sheet-harm-6" />6
-                    <input type="radio" value="9" name="attr_harm" class="sheet-harm-checkbox sheet-harm-9" />9
-                    <input type="radio" value="10" name="attr_harm" class="sheet-harm-checkbox sheet-harm-10" />10
-                    <input type="radio" value="11" name="attr_harm" class="sheet-harm-checkbox sheet-harm-11" />11
-                    <input type="radio" value="12" name="attr_harm" class="sheet-harm-checkbox sheet-harm-12" />12
-                    <br/>
-                    <div class="sheet-harm-clock"></div>
-                </div>
-                <h4><span data-i18n="life-untenable">When Life is Untenable</span>:</h4>
-                <input type="checkbox" name="attr_-1hard" value="1"  /><label><span data-i18n="back-minus-harm">Come back with -1hard</span></label><br />
-                <input type="checkbox" name="attr_newplaybook" value="1"  /><label><span data-i18n="change-playbook">Change to a new Playbook</span></label><br />
-                <input type="checkbox" name="attr_1weird" value="1"  /><label><span data-i18n="back-minus-weird">Come back with +1weird</span></label><br />
-                <input type="checkbox" name="attr_dead" value="1"  /><label><span data-i18n="die">Die</span></label>
             </div>
             <div class="sheet-box">
                 <!-- Class Selected -->
