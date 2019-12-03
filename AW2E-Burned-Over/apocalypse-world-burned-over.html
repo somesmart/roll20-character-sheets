@@ -38,7 +38,7 @@
     <label class="sheet-name"><span data-i18n="name">Name</span>:</label>
     <input type="text" name="attr_character_name"/><br/>
     <label class="sheet-name"><span data-i18n="first-impression">First Impression</span>:</label>
-    <textarea rows="3" cols="30" name="attr_first-impression"></textarea>
+    <input type="text" name="attr_first_impression"/><br/>
     <div class="lne">
         <label class="sheet-name"><span data-i18n="playbook-archetype">Playbook</span>:</label>
         <input type='checkbox' name='attr_lock_class' class='sheet-lock'>
@@ -77,54 +77,160 @@
             <div><input type="radio" name="attr_class" class="sheet-class" value='Weaponized'/><label><span data-i18n="weaponized">Weaponized</span></label></div>
         </div>
     </div>
+    <div class="sheet-flex">
+        <div class="sheet-flex-container">
+            <span data-i18n="stats-effects">Stats and Effects</span>
+            <div class="sheet-stats-container">
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="aggro">Aggro</span>
+                            <input type="number" name="attr_aggro" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <input type="checkbox" name="attr_aggroHighlighted" value="0"><span data-il8n="highlighted">Hightlighted</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <span data-i18n="confront">confront someone</span>
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{aggro}}} {{roll_mod=@{aggro}}} {{result=[[2d6 + @{aggro} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_cs' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="weapon">Weapon</span>
+                            <input type="number" name="attr_weapon" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <span data-i18n="roll">roll</span> <span class="sheet-statname-long" data-i18n="weapon">Weapon</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{weapon}}} {{roll_mod=@{weapon}}} {{result=[[2d6 + @{weapon} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_weapon' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="cool">cool</span>
+                            <input type="number" name="attr_cool" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <input type="checkbox" name="attr_coolHighlighted" value="0"><span data-il8n="highlighted">Hightlighted</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <span data-i18n="do-something-under-fire">act under fire/charm or decieve someone</span>
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{cool}}} {{roll_mod=@{cool}}} {{result=[[2d6 + @{cool} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_dsuf'></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="armor">armor</span>
+                            <input type="number" name="attr_armor" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <span data-i18n="roll">roll</span> <span class="sheet-statname-long" data-i18n="armor">armor</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{armor}}} {{roll_mod=@{armor}}} {{result=[[2d6 + @{armor} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_armor' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="hard">hard</span>
+                            <input type="number" name="attr_hard" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <input type="checkbox" name="attr_hardHighlighted" value="0"><span data-il8n="highlighted">Hightlighted</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <span data-i18n="do-battle">do battle</span>
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{hard}}} {{roll_mod=@{hard}}} {{result=[[2d6 + @{hard} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_db' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="Ψ">Ψ</span>
+                            <input type="number" name="attr_Ψ" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <span data-i18n="roll">roll</span> <span class="sheet-statname-long" data-i18n="Ψ">Ψ</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{Ψ}}} {{roll_mod=@{Ψ}}} {{result=[[2d6 + @{Ψ} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_Ψ' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="sharp">sharp</span>
+                            <input type="number" name="attr_sharp" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <input type="checkbox" name="attr_sharpHighlighted" value="0"><span data-il8n="highlighted">Hightlighted</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <span data-i18n="read-a-sitch">read a sitch; read a person</span>
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{sharp}}} {{roll_mod=@{sharp}}} {{result=[[2d6 + @{sharp} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_rasrap' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="barter">barter</span>
+                            <input type="number" name="attr_barter" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <span data-i18n="roll">roll</span> <span class="sheet-statname-long" data-i18n="barter">barter</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{barter}}} {{roll_mod=@{barter}}} {{result=[[2d6 + @{barter} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_barter' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="weird">weird</span>
+                            <input type="number" name="attr_weird" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <input type="checkbox" name="attr_weirdHighlighted" value="0"><span data-il8n="highlighted">Hightlighted</span>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <span data-i18n="open-your-brain">open your brain to the world's psychic maelstrom</span>
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{weird}}} {{roll_mod=@{weird}}} {{result=[[2d6 + @{weird} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_oyb' ></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sheet-stats">
+                    <div class="sheet-statbox">
+                        <div class="sheet-stat-header">
+                            <span class="sheet-statname-long" data-i18n="environ">environ</span>
+                            <input type="number" name="attr_environ" value="0">
+                        </div>
+                        <div class="sheet-stat-highlighted">
+                            <span data-i18n="roll">roll</span> <span class="sheet-statname-long" data-i18n="environ">environ</span>>
+                        </div>
+                        <div class="sheet-stat-footer">
+                            <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{environ}}} {{roll_mod=@{environ}}} {{result=[[2d6 + @{environ} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_environ' ></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="sheet-3colrow">
         <div class="sheet-col odd"> <!-- COL1 SATS AND IMPROVEMENTS -->
-            <label class="sheet-class-moves sheet-section-title"><span data-i18n="stats">Stats</span>:</label>
-            <div class="sheet-attr-box">
-                <label class="sheet-cool sheet-name"><span data-i18n="cool">Cool</span>:</label>
-                <input type="number" name="attr_cool" value="0" />
-                <input type='checkbox' name='attr_coolHighlighted' value='1' class='sheet-highlight'><label class='sheet-highlight'><span data-i18n="highlighted">Highlighted</span></label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="do-something-under-fire">act under fire/charm or decieve someone</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{cool}}} {{roll_mod=@{cool}}} {{result=[[2d6 + @{cool} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_dsuf'></button>
-                </div>
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-aggro sheet-name"><span data-i18n="aggro">Aggro</span>:</label>
-                <input type="number" name="attr_aggro" value="0" />
-                <input type='checkbox' name='attr_aggroHighlighted' value='1' class='sheet-highlight'><label class='sheet-highlight'><span data-i18n="highlighted">Highlighted</span></label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="confront">confront someone</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{aggro}}} {{roll_mod=@{aggro}}} {{result=[[2d6 + @{aggro} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_cs' ></button>
-                </div>
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-hard sheet-name"><span data-i18n="hard">Hard</span>:</label>
-                <input type="number" name="attr_hard" value="0" />
-                <input type='checkbox' name='attr_hardHighlighted' value='1' class='sheet-highlight'><label class='sheet-highlight'><span data-i18n="highlighted">Highlighted</span></label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="do-battle">do battle</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{hard}}} {{roll_mod=@{hard}}} {{result=[[2d6 + @{hard} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_db' ></button>
-                </div>
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-sharp sheet-name"><span data-i18n="sharp">Sharp</span>:</label>
-                <input type="number" name="attr_sharp" value="0" />
-                <input type='checkbox' name='attr_sharplHighlighted' value='1' class='sheet-highlight'><label class='sheet-highlight'><span data-i18n="highlighted">Highlighted</span></label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="read-a-sitch">read a sitch; read a person</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{sharp}}} {{roll_mod=@{sharp}}} {{result=[[2d6 + @{sharp} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_rasrap' ></button>
-                </div>
-            </div>
-            <div class="sheet-attr-box">
-                <label class="sheet-weird sheet-name"><span data-i18n="weird">Weird</span>:</label>
-                <input type="number" name="attr_weird" value="0" />
-                <input type='checkbox' name='attr_weirdlHighlighted' value='1' class='sheet-highlight'><label class='sheet-highlight'><span data-i18n="highlighted">Highlighted</span></label>
-                <div class="sheet-roll-box sheet-cf">
-                    <label class="sheet-buttonLbl"><span data-i18n="open-your-brain">open your brain to the world's psychic maelstrom</span>:</label>
-                    <button type='roll' value='&{template:aw} {{name=@{character_name}}} {{roll_name=^{weird}}} {{roll_mod=@{weird}}} {{result=[[2d6 + @{weird} + ?{Forward/Help/Interference |0|-3|-2|-1|1|2|3}]]}}' name='roll_oyb' ></button>
-                </div>
-            </div>
             <div class="sheet-box">
                 <label class="sheet-improvements sheet-section-title"><span data-i18n="improvements">Improvements</span>:</label>
                 <div class="sheet-tracker">
@@ -338,8 +444,8 @@
                             <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-9" /> <span data-i18n="get-plus-sharp-max2">Get +1Sharp (max Sharp+2).</span></label></li>
                             <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-10" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
                             <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-11" /> <span data-i18n="get-move-weaponized">Upgrade: get a new Weaponized move.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-12" /> <span data-i18n="exchange-machien-options">Exchange one of your machine's options for another.</span></label></li>
-                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-13" /> <span data-i18n="exchange-machien-options">Exchange one of your machine's options for another.</span></label></li>
+                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-12" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
+                            <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-13" /> <span data-i18n="exchange-machine-options">Exchange one of your machine's options for another.</span></label></li>
                             <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-14" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
                             <li><label class="sheet-improvement"><input type="checkbox" name="attr_weaponized-improvement-15" /> <span data-i18n="get-move-other">Get a move from an unused playbook.</span></label></li>
                             <li><hr></li>
@@ -353,7 +459,7 @@
             </div>
         </div> <!-- END COL 1 -->
         <div class="sheet-col even"> <!-- COL 2 -->
-            <label class="sheet-class-moves sheet-section-title"><span data-i18n="stats">Effects</span>:</label>
+            <label class="sheet-class-moves sheet-section-title"><span data-i18n="effects">Effects</span>:</label>
             <div class="sheet-attr-box">
                 <label class="sheet-weapon sheet-name"><span data-i18n="weapon">Weapon</span>:</label>
                 <input type="number" name="attr_weapon" value="0" />
@@ -628,21 +734,47 @@
             <!-- End Undaunted Custom Section-->
             <!-- Begin Vigilant Custom Section-->
             <div class="sheet-box sheet-vigilant">
+                <label class="sheet-other sheet-section-title"><span data-i18n="wolves-maelstrom">Wolves of the Maelstrom</span>:</label><br/>
                 <small><span data-il8n="wolves-descr-1">You know the wolves of the maelstrom. You might be the only one who does.</span></small><br>
                 <small><span data-il8n="wolves-descr-2">Under their disguises, they look like (choose 1)</span>:</small>
                     <ul>
-                        <li><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-1" /> <span data-i18n="wolves-option-1"></span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-1" /> <span data-i18n="wolves-option-1">people</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-2" /> <span data-i18n="wolves-option-2">birds</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-3" /> <span data-i18n="wolves-option-3">beasts</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-4" /> <span data-i18n="wolves-option-4">insects</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-5" /> <span data-i18n="wolves-option-5">angels</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-6" /> <span data-i18n="wolves-option-6">shadows</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-7" /> <span data-i18n="wolves-option-7">machines</span></label></li>
                     </ul>
+                <small><span data-il8n="wolves-descr-3">But (choose 2)</span>:</small>
+                    <ul class="inline">
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-8" /> <span data-i18n="wolves-option-8">they have no faces</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-9" /> <span data-i18n="wolves-option-9">they have human faces</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-10" /> <span data-i18n="wolves-option-11">they have wolves' faces</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-12" /> <span data-i18n="wolves-option-12">they have awful voices</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-13" /> <span data-i18n="wolves-option-13">they have no expression</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-14" /> <span data-i18n="wolves-option-14">they're dripping gore</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-15" /> <span data-i18n="wolves-option-15">they only howl</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-16" /> <span data-i18n="wolves-option-16">they don't stand on the ground</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-17" /> <span data-i18n="wolves-option-17">they make terrible grinding noises</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-18" /> <span data-i18n="wolves-option-18">they are made of metal and plastic</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-19" /> <span data-i18n="wolves-option-19">they have empty holes for eyes</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-20" /> <span data-i18n="wolves-option-20">they come and go impossibly</span></label></li>
+                        <li class="inline"><label class="sheet-improvement"><input type="checkbox" name="attr_wolves-option-21" /> <span data-i18n="wolves-option-21">they're invisible</span></label></li>
+                    </ul>
+                <small><span data-il8n="wolves-descr-4">Tell the MC the above, and to create them as threats</span></small>
             </div>
             <!-- End Vigilant Custom Section-->
-            <div class="sheet-box sheet-volatile">
-                <label class="sheet-other sheet-section-title"><span data-i18n="your-bike">Your Bike</span>:</label>
-                <div><label class="sheet-custom"><span data-i18n="strength">Strength</span>:</label></div>
-                <div><input type="text" name="attr_bikestrength" /></div>
-                <div><label class="sheet-custom"><span data-i18n="looks">Looks</span>:</label></div>
-                <div><input type="text" name="attr_bikelook" /></div>
-                <div><label class="sheet-custom"><span data-i18n="weaknesses">Weaknesses</span>:</label></div>
-                <div><input type="text" name="attr_bikeweakness" /></div>
+            <div class="sheet-box sheet-weaponized">
+                <label class="sheet-other sheet-section-title"><span data-i18n="your-machine">Your Machine</span>:</label><br/>
+                <small><span data-il8n="your-machine-descr-1">You are not only human, you’re also a machine, built for war. Your machine drives you and makes demands of you. Choose 2</span>:</small>
+                <ul>
+                    <li><label class="sheet-improvement"><input type="checkbox" name="attr_machine-option-1" /> <span data-i18n="machine-option-1"><strong>AI Override</strong>: Tell the MC to create your AI override as a <strong>warlord</strong> threat. Once per session, and more often if you choose, tell the MC that your AI override takes over. Ask the MC what you do</span></label></li>
+                    <li><label class="sheet-improvement"><input type="checkbox" name="attr_machine-option-2" /> <span data-i18n="machine-option-2"><strong>Fury</strong>: When you <strong>confront someone</strong>, there’s no appeasing you. If they back down, mollify, prevaricate, or submit to you in any way, it provokes you; count it as forcing your hand. If they get away from you instead, you must pursue them and press the attack</span></label></li>
+                    <li><label class="sheet-improvement"><input type="checkbox" name="attr_machine-option-3" /> <span data-i18n="machine-option-3"><strong>Hive mind</strong>: You share thoughts and senses with others like you. Tell the MC to create other Weaponized as <strong>infiltrator</strong> threats. At any time, the MC can interrupt you to tell you what another Weaponized somewhere is seeing, feeling, and doing, or to have another Weaponized somewhere ask you what you’re seeing, feeling, and doing</span></label></li>
+                    <li><label class="sheet-improvement"><input type="checkbox" name="attr_machine-option-4" /> <span data-i18n="machine-option-4"><strong>Killing instinct</strong>: When you <strong>do battle</strong>, and whenever you have the opportunity to do so otherwise, you must spend at least 1 to inflict additional harm</span></label></li>
+                    <li><label class="sheet-improvement"><input type="checkbox" name="attr_machine-option-5" /> <span data-i18n="machine-option-5"><strong>Manual override</strong>: When someone tells you to do something, if they say the words "manual override," you don’t have a choice, you have to undertake to do it</span></label></li>
+                </ul>:
             </div>
             <label class="sheet-other sheet-section-title"><span data-i18n="gear">Gear</span>:</label>
                 <textarea rows="4" cols="50" name="attr_gear"></textarea>
