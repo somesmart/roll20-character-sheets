@@ -41,7 +41,7 @@ li {
 	color: #FFFFFF;
 	line-height: 43px;
 	height: 36px;
-	width: 100%;
+	width: 92%;
 	padding-left: 15px;
 	margin-left: 0;
 	margin-bottom: 0;
@@ -578,6 +578,27 @@ input.sheet-showhide:checked ~ .sheet-subbox {display: none;}
 }
 
 /*current changes*/
+.sheet-flex li {
+    font-size: smaller;
+}
+
+.charsheet .sheet-flex .sheet-section-title {
+    background: url(http://imgsrv.roll20.net/?src=i.imgur.com/RNob7Yh.jpg) repeat-x left center transparent;
+}
+
+.charsheet .sheet-flex .sheet-section-title {
+    background: url(http://imgsrv.roll20.net/?src=i.imgur.com/OjBPJL9.jpg) repeat-x left center transparent;
+    color: #FFFFFF;
+    line-height: 43px;
+    height: 36px;
+    width: 92%;
+    padding-left: 15px;
+    margin-left: 0;
+    margin-bottom: 0;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
 
 div.sheet-flex:first-child {
   margin-right: 0.5%; }
@@ -604,23 +625,36 @@ div.sheet-flex:first-child {
 .sheet-flex-container {
     display: inline-flex;
     flex-wrap: wrap;
-    max-height: 230px;
     margin-top: 8px;
     max-width: 100%;
 }
+
+.sheet-flex-container > div{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
 
 .charsheet .sheet-stats-container {
     flex: 0 0 auto;
     display: inline-flex;
     flex-wrap: wrap;
     width: 45%;
+    padding-left: 5px;
 }
 
-.charsheet .sheet-misc-container {
+.charsheet .sheet-sm-container {
     flex: 0 0 auto;
     display: inline-flex;
     flex-wrap: wrap;
-    width: 45%;
+    width: 25%;
+}
+
+.charsheet .sheet-md-container {
+    flex: 0 0 auto;
+    display: inline-flex;
+    flex-wrap: wrap;
+    width: 30%;
 }
 
 .charsheet .sheet-stats {
